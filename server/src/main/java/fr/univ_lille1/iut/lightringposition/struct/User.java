@@ -12,6 +12,13 @@ public class User {
 
 	public User() {}
 
+	public User(String login, String password, String email, String nickname) {
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.nickname = nickname;
+	}
+
 	public User(String login, String password, String email, String nickname,
 			File avatar) {
 		this.login = login;
@@ -61,8 +68,8 @@ public class User {
 		this.avatar = avatar;
 	}
 
-	public boolean isValid() {
-		return this.login != null && this.password != null
-				&& this.email != null && this.nickname != null;
+	public boolean isValidNewUser() {
+		return this.login != null && this.password != null && this.email != null
+				&& this.nickname != null && this.avatar == null;
 	}
 }
