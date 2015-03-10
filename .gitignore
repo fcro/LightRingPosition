@@ -1,0 +1,12 @@
+# Binaries
+*.class
+
+# Targets
+*.jar
+*.war
+target/
+log/
+
+# Temp
+*~
+*.swp
