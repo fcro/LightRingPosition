@@ -2,8 +2,6 @@ package fr.univ_lille1.iut.lightringposition.test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -11,37 +9,46 @@ import javax.ws.rs.core.MediaType;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Account;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAccount extends JerseyTest {
 	@Override
 	protected Application configure() {
 		return new ResourceConfig(Account.class);
 	}
 
-	/**
-	 * Vérifie qu'on récupère un compte utilisateur au format JSON
-	 */
-	@Test
-	public void testGetAccount() {
-		User user =	target("/account/test").request(MediaType.APPLICATION_JSON)
-				.get(new GenericType<User>(){});
-		assertTrue(user instanceof User);
+	@BeforeClass
+	public static void useTestDB() {
+		DBUtil.useTestDB();
+		DBUtil.getDAO().initDB();
+	}
+
+	@AfterClass
+	public static void deleteTestDB() {
+		DBUtil.deleteTestDB();
 	}
 
 	/**
 	 * Vérifie qu'on peut créer un user valide
 	 */
 	@Test
-	public void testCreateAccount() {
-		User toCreate = new User("test", "pass", "addr@mail.tdl", "xX_d4rKpL4y3r_XxX",
-				new File("img/img.png"));
+	public void test_A_createAccount() {
+		User toCreate = new User("test", "pass", "addr@mail.tld", "pseudo");
 		Entity<User> userEntity = Entity.entity(toCreate, MediaType.APPLICATION_JSON);
 		int code = target("/account").request().post(userEntity).getStatus();
 		assertEquals(201, code);
+
+		code = target("/account").request().post(userEntity).getStatus();
+		assertEquals(409, code);
 
 		User invalid = new User();
 		invalid.setEmail("emailok");
@@ -50,5 +57,20 @@ public class TestAccount extends JerseyTest {
 		userEntity = Entity.entity(invalid, MediaType.APPLICATION_JSON);
 		code = target("/account").request().post(userEntity).getStatus();
 		assertEquals(400, code);
+	}
+
+	/**
+	 * Vérifie qu'on récupère un compte utilisateur au format JSON
+	 * ou null s'il n'existe pas
+	 */
+	@Test
+	public void test_B_getAccount() {
+		User user =	target("/account/test").request(MediaType.APPLICATION_JSON)
+				.get(new GenericType<User>(){});
+		assertEquals("addr@mail.tld", user.getEmail());
+
+		user =	target("/account/gabuzomeu").request(MediaType.APPLICATION_JSON)
+				.get(new GenericType<User>(){});
+		assertNull(user);
 	}
 }

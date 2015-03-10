@@ -1,5 +1,7 @@
 package fr.univ_lille1.iut.lightringposition.db;
 
+import java.io.File;
+
 import org.skife.jdbi.v2.DBI;
 
 public class DBUtil {
@@ -23,6 +25,11 @@ public class DBUtil {
 
 	public static void useTestDB() {
 		dbUrl = "jdbc:h2:./test_lrp";
+	}
+
+	public static void deleteTestDB() {
+		new File("test_lrp.mv.db").delete();
+		new File("test_lrp.trace.db").delete();
 	}
 
 	/**
