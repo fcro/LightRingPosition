@@ -5,8 +5,10 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 public interface UniDAO {
 	@SqlUpdate("CREATE TABLE USER(" +
 			"login			VARCHAR(20)			PRIMARY KEY," +
-			"password		VARCHAR(20)," +
-			"email			VARCHAR(50));" +
+			"password		VARCHAR(20)			NOT NULL," +
+			"email			VARCHAR(50)			NOT NULL," +
+			"nickname		VARCHAR(20)			NOT NULL," +
+			"avatar			VARCHAR(255));" +
 
 			"CREATE TABLE FRIEND(" +
 			"login			VARCHAR(20)," +
