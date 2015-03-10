@@ -3,6 +3,7 @@ package fr.univ_lille1.iut.lightringposition.struct;
 import java.io.File;
 
 public class User {
+
 	private String login;
 	private String password;
 	private String email;
@@ -10,6 +11,15 @@ public class User {
 	private File avatar;
 
 	public User() {}
+
+	public User(String login, String password, String email, String nickname,
+			File avatar) {
+		this.login = login;
+		this.password = password;
+		this.email = email;
+		this.nickname = nickname;
+		this.avatar = avatar;
+	}
 
 	public String getLogin() {
 		return login;
@@ -49,5 +59,10 @@ public class User {
 
 	public void setAvatar(File avatar) {
 		this.avatar = avatar;
+	}
+
+	public boolean isValid() {
+		return this.login != null && this.password != null
+				&& this.email != null && this.nickname != null;
 	}
 }
