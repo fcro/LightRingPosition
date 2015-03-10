@@ -1,4 +1,4 @@
-package fr.univ_lille1.iut.lightringposition.doc;
+package fr.univ_lille1.iut.lightringposition.game;
 
 import java.util.Random;
 
@@ -47,7 +47,9 @@ public class Plateau {
 		    return aString;
 		}
 	
-
+	public int getVal() {
+		return val;
+	}
 
 
 	public static void main(String[]args){
