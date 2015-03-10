@@ -3,6 +3,7 @@ package fr.univ_lille1.iut.lightringposition.db;
 import org.skife.jdbi.v2.DBI;
 
 public class DBUtil {
+	private static String dbUrl = "jdbc:h2:./lrp";
 	private static DBI dbi;
 	private static UniDAO dao;
 
@@ -13,11 +14,15 @@ public class DBUtil {
 	 */
 	public static UniDAO getDAO() {
 		if (dbi == null)
-			dbi = new DBI("jdbc:h2:./lrp","dba","");
+			dbi = new DBI(dbUrl, "dba", "");
 		if (dao == null)
 			dao = dbi.open(UniDAO.class);
 
 		return dao;
+	}
+
+	public static void useTestDB() {
+		dbUrl = "jdbc:h2:./test_lrp";
 	}
 
 	/**
