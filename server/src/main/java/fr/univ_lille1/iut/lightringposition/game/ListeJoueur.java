@@ -20,6 +20,10 @@ public class ListeJoueur {
 	public void setListeJoueur(Map<Integer, String> listeJoueur) {
 		this.listeJoueur = listeJoueur;
 	}
+
+/*	public static void main(String[] args) {
+		plateau.length*plateau.length*10/100
+	}*/
 	
 	
 }
