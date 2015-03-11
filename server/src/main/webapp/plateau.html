@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='jquery-2.1.3.js'></script>
+<script>
+$(document).ready(function(){
+$.ajax({
+url: "webapi/jeu/plateau",
+method: "GET",
+dataType: "json",
+success: function( json){
+var plateau=json;
+console.log(plateau);
+
+},
+});
+
+});
+</script>
+</head>
+</html>
