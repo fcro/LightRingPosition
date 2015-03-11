@@ -5,7 +5,7 @@ public class Case {
 	private boolean estObstacle;
 	private Joueur occupant;
 	private Joueur proprietaire;
-
+	
 	public Case(){
 		estVide = true;
 		estObstacle = false;
