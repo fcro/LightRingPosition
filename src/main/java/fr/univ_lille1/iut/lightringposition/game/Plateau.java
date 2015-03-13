@@ -3,6 +3,8 @@ package fr.univ_lille1.iut.lightringposition.game;
 import java.util.List;
 import java.util.Random;
 
+import fr.univ_lille1.iut.lightringposition.doc.PlateauJeu;
+
 public class Plateau {
 
 	private List<Joueur> listeJoueurs;
@@ -18,6 +20,10 @@ public class Plateau {
 		this.taille = taille;
 		this.listeJoueurs = listeJoueurs;
 		this.plateau=new Case[taille][taille];
+		for(int i=0;i<4;i++) {
+			this.listeJoueurs.add(new Joueur("toto"));
+			this.listeJoueurs.get(i).setId(i);
+		}
 	}
 
 	public void generation(){
@@ -98,6 +104,30 @@ public class Plateau {
 			plateau[x][y].setOccupant(listeJoueurs.get(i));
 			plateau[x][y].setEstVide(false);
 			plateau[x][y].setEstObstacle(false);
+			listeJoueurs.get(i).setCoordX(x);
+			listeJoueurs.get(i).setCoordY(y);
+		}
+	}
+	
+	public boolean verifCavalier(Case[][] p, Joueur joueur, int coordX, int coordY) {
+		if(!p[coordX][coordY].getEstVide()) return false;
+		else if(((Math.abs(joueur.getCoordX()-coordX) == 1 && Math.abs(joueur.getCoordY() - coordY)==2)) 
+				||((Math.abs(joueur.getCoordX()-coordX) == 2 && Math.abs(joueur.getCoordY() - coordY)==1)) ) return true;
+		else return false;
+	}
+	
+	public void deplacement(Case[][] p, Joueur joueur, int coordX, int coordY) {
+		if(verifCavalier(p,joueur,coordX,coordY)) {
+		p[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
+		p[coordX][coordY].setOccupant(joueur);
+		joueur.setCoordX(coordX);
+		joueur.setCoordY(coordY);
+		if (PlateauJeu.idx +1 >= listeJoueurs.size()){
+			PlateauJeu.idx = 0;
+		} else {
+			PlateauJeu.idx++;
+		}
+	
 		}
 	}
 	
