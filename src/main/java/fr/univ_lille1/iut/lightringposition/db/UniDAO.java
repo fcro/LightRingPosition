@@ -37,7 +37,7 @@ public interface UniDAO {
 
 	@SqlUpdate("CREATE TABLE USER(" +
 			"login			VARCHAR(20)			PRIMARY KEY," +
-			"password		VARCHAR(31)			NOT NULL," +
+			"password		VARCHAR(32)			NOT NULL," +
 			"email			VARCHAR(50)			NOT NULL," +
 			"nickname		VARCHAR(20)			NOT NULL," +
 			"avatar			VARCHAR(255));" +
