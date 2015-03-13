@@ -35,7 +35,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Light Ring Position</a>
+          <a class="navbar-brand" href="#"><img src="img/logo.png"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
@@ -74,7 +74,7 @@
       <hr>
 
       <footer>
-        <p>&copy;Aucun droit déposé (nik la poliss)</p>
+        <p>&copy;Tout droit réservés - Light Ring Position 2015 - IUT A Lille </p>
       </footer>
     </div> <!-- /container -->
 
