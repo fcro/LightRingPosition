@@ -29,14 +29,14 @@ public class Account {
 	@Path("auth")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String authenticate(LoginPwd loginPwd) {
+	public Response authenticate(LoginPwd loginPwd) {
 		String loginInDB = DBUtil.getDAO().getLoginByLoginPassword
 				(loginPwd.getLogin(),PwdEncrypt.encrypt(loginPwd.getPassword()));
 
 		if (loginInDB != null && loginInDB.equals(loginPwd.getLogin()))
-			return "ok";
+			return Response.ok("Identifiants valides").build();
 
-		return "echec";
+		return Response.status(403).entity("Identifiants invalides").build();
 	}
 
 	@POST
