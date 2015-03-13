@@ -11,6 +11,7 @@ public class Joueur {
 	public Joueur(String nom){
 		this.setNom(nom);
 	}
+	
 	public String getNom() {
 		return nom;
 	}

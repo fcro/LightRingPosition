@@ -1,22 +1,21 @@
 package fr.univ_lille1.iut.lightringposition.game;
 
+import java.util.List;
 import java.util.Random;
 
 public class Plateau {
 
-	private int nbrejoueurs;
+	private List<Joueur> listeJoueurs;
 	private int val;
 	private Case[][]plateau;
 	private int taille;
 	private char valeurObstacles;
 
-	public Plateau(){
+	public Plateau() {}
 
-	}
-
-	public Plateau(int taille, int nbreJoueurs){
+	public Plateau(int taille, List<Joueur> listeJoueurs){
 		this.taille = taille;
-		this.nbrejoueurs= nbreJoueurs;
+		this.listeJoueurs = listeJoueurs;
 		this.plateau=new Case[taille][taille];
 	}
 
@@ -38,27 +37,17 @@ public class Plateau {
 		}
 	}
 
-
 	public int getVal() {
 		return val;
 	}
-	public static void main(String[]args){
-		Plateau p=new Plateau(20, 4);
-		p.generation();
-		System.out.println(p);
 
+
+	public List<Joueur> getListeJoueurs() {
+		return listeJoueurs;
 	}
 
-	public void placementJoueur(){
-
-	}
-
-	public int getNbrejoueurs() {
-		return nbrejoueurs;
-	}
-
-	public void setNbrejoueurs(int nbrejoueurs) {
-		this.nbrejoueurs = nbrejoueurs;
+	public void setListeJoueurs(List<Joueur> listeJoueurs) {
+		this.listeJoueurs = listeJoueurs;
 	}
 
 	public Case[][] getPlateau() {
@@ -89,5 +78,31 @@ public class Plateau {
 		this.val = val;
 	}
 
-
+	public void placementJoueur(){
+		for(int i=0; i<listeJoueurs.size();i++) {
+			int x,y;
+			Random r= new Random();
+			do {
+				x = r.nextInt(plateau.length);
+				y = r.nextInt(plateau.length);
+			}while(!plateau[x][y].getEstVide());
+			plateau[x][y].setOccupant(listeJoueurs.get(i));
+			plateau[x][y].setEstVide(false);
+			plateau[x][y].setEstObstacle(false);
+		}
+	}
+	
+	public String afficherPlateau() {
+		String ch =".";
+		for(int i=0;i<plateau.length;i++) {
+			for(int j=0;j<plateau.length;j++) {
+				if(plateau[i][j].getEstVide()) ch+= ".";
+				else if(plateau[i][j].getEstObstacle()) ch+="X";
+				else if(plateau[i][j].getOccupant() != null)
+					ch += listeJoueurs.indexOf(plateau[i][j].getOccupant());
+			}
+			ch+="\n";
+		}
+		return ch;
+	}
 }
