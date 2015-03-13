@@ -12,7 +12,10 @@ public class User {
 
 	public User() {}
 
-	public User(String login, String password, String email, String nickname) {
+	public User(String login, String password, String email, String nickname) throws InvalidUserException {
+		if (login.length() > 20 || password.length() > 20 || email.length() > 50
+				|| nickname.length() > 20)
+			throw new InvalidUserException();
 		this.login = login;
 		this.password = password;
 		this.email = email;
@@ -20,11 +23,8 @@ public class User {
 	}
 
 	public User(String login, String password, String email, String nickname,
-			File avatar) {
-		this.login = login;
-		this.password = password;
-		this.email = email;
-		this.nickname = nickname;
+			File avatar) throws InvalidUserException {
+		this(login, password, email, nickname);
 		this.avatar = avatar;
 	}
 

@@ -11,6 +11,7 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
+import fr.univ_lille1.iut.lightringposition.struct.InvalidUserException;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 
 public interface UniDAO {
@@ -18,17 +19,25 @@ public interface UniDAO {
 	public class UserMapper implements ResultSetMapper<User> {
 		public User map(int index, ResultSet r, StatementContext ctx) throws SQLException {
 			if (r.getString("avatar") != null)
-				return new User(r.getString("login"), r.getString("password"), r.getString("email"),
-					r.getString("nickname"), new File(r.getString("avatar")));
+				try {
+					return new User(r.getString("login"), r.getString("password"), r.getString("email"),
+						r.getString("nickname"), new File(r.getString("avatar")));
+				} catch (InvalidUserException e) {
+					return null;
+				}
 			else
-				return new User(r.getString("login"), r.getString("password"), r.getString("email"),
-						r.getString("nickname"));
+				try {
+					return new User(r.getString("login"), r.getString("password"), r.getString("email"),
+							r.getString("nickname"));
+				} catch (InvalidUserException e) {
+					return null;
+				}
 		}
 	}
 
 	@SqlUpdate("CREATE TABLE USER(" +
 			"login			VARCHAR(20)			PRIMARY KEY," +
-			"password		VARCHAR(20)			NOT NULL," +
+			"password		VARCHAR(31)			NOT NULL," +
 			"email			VARCHAR(50)			NOT NULL," +
 			"nickname		VARCHAR(20)			NOT NULL," +
 			"avatar			VARCHAR(255));" +
