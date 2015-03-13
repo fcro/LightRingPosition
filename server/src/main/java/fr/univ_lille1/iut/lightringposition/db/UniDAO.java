@@ -11,8 +11,8 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
-import fr.univ_lille1.iut.lightringposition.struct.InvalidUserException;
 import fr.univ_lille1.iut.lightringposition.struct.User;
+import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
 public interface UniDAO {
 

@@ -1,4 +1,4 @@
-package fr.univ_lille1.iut.lightringposition.struct;
+package fr.univ_lille1.iut.lightringposition.util;
 
 public class InvalidUserException extends Exception {
 

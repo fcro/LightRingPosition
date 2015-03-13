@@ -17,8 +17,9 @@ import org.junit.runners.MethodSorters;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Account;
-import fr.univ_lille1.iut.lightringposition.struct.InvalidUserException;
+import fr.univ_lille1.iut.lightringposition.struct.LoginPwd;
 import fr.univ_lille1.iut.lightringposition.struct.User;
+import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAccount extends JerseyTest {
@@ -73,5 +74,26 @@ public class TestAccount extends JerseyTest {
 		user =	target("/account/gabuzomeu").request(MediaType.APPLICATION_JSON)
 				.get(new GenericType<User>(){});
 		assertNull(user);
+	}
+
+	/**
+	 * Vérifie que l'on peut s'authentifier avec un identifiant valide et
+	 * que la connexion est refusée sinon
+	 */
+	@Test
+	public void test_C_authenticate() {
+		LoginPwd loginPwd = new LoginPwd();
+		loginPwd.setLogin("test");
+		loginPwd.setPassword("pass");
+		Entity<LoginPwd> loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
+
+		assertEquals("ok", target("/account/auth").request(MediaType.TEXT_PLAIN)
+				.post(loginPwdEntity));
+
+		loginPwd.setPassword("nope");
+		loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
+
+		assertEquals("echec", target("/account/auth").request(MediaType.TEXT_PLAIN)
+				.post(loginPwdEntity));
 	}
 }

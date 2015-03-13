@@ -2,6 +2,8 @@ package fr.univ_lille1.iut.lightringposition.struct;
 
 import java.io.File;
 
+import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
+
 public class User {
 
 	private String login;

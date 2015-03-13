@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
+import fr.univ_lille1.iut.lightringposition.struct.LoginPwd;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
@@ -22,6 +23,14 @@ public class Account {
 	public User getUserInfo(@PathParam("login") String login) {
 		User user = DBUtil.getDAO().findUserByLogin(login);
 		return user;
+	}
+
+	@POST
+	@Path("auth")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String authenticate(LoginPwd loginPwd) {
+		return "TESTFAIL";
 	}
 
 	@POST
