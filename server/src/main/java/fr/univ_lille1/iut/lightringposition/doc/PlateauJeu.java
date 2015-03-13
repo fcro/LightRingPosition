@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -29,5 +31,14 @@ public class PlateauJeu{
 		p.generation();
 		p.placementJoueur();
 		return p; 
+	}
+	
+	@POST
+	@Path("coord/{x}/{y}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void postCoord(@PathParam("x") int x, @PathParam("y") int y) {
+		p.getCoord()[0] = x;
+		p.getCoord()[1] = y;
+		System.out.println("Coord x :" + x + " Coord y :"+y);
 	}
 }

@@ -10,6 +10,7 @@ public class Plateau {
 	private Case[][]plateau;
 	private int taille;
 	private char valeurObstacles;
+	private int[] coord = new int[2];
 
 	public Plateau() {}
 
@@ -41,6 +42,14 @@ public class Plateau {
 		return val;
 	}
 
+
+	public int[] getCoord() {
+		return coord;
+	}
+
+	public void setCoord(int[] coord) {
+		this.coord = coord;
+	}
 
 	public List<Joueur> getListeJoueurs() {
 		return listeJoueurs;

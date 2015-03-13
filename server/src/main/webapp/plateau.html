@@ -14,8 +14,8 @@
 	canvas_height=0;
 	canvas_width=0;
 	taille_plateau=0;
-	x=0;
-	y=0;
+	x=0 ;
+	y=0 ;
 	
 	function afficherPlateau(data) {
 
@@ -33,7 +33,6 @@
 				'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
 				'yellow' ];
 
-		console.log(colors);
 		for ( var i = 0; i < data.taille; i++) {
 			for ( var j = 0; j < data.taille; j++) {
 				context.strokeRect((width / taille) * i, (height / taille) * j,
@@ -56,10 +55,28 @@
 
 		$("#canvasEl").bind("click", function(e) {
 			canvasClick(e);
+			envoiCoord();
 		});
 
 	});
 
+	function envoiCoord() {
+		$.ajax({
+			type : 'POST',
+			contentType : 'application/json',
+			url : "webapi/jeu/coord/"+Math.floor(x/ (canvas_height/taille_plateau))+"/"+Math.floor(y/ (canvas_width/taille_plateau)),
+			dataType : "json",
+			data : JSON.stringify({
+			}),
+			success : function(data, textStatus, jqXHR) {
+				console.log("ca marche");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log('error');
+			}
+		});
+	}
+	
 	function canvasClick(e) {
 		var targ;
 		if (!e)
@@ -70,8 +87,8 @@
 			targ = e.srcElement;
 		if (targ.nodeType == 3) // defeat Safari bug
 			targ = targ.parentNode;
-		var x = e.pageX - $(targ).offset().left;
-		var y = e.pageY - $(targ).offset().top;
+		x = e.pageX - $(targ).offset().left;
+		y = e.pageY - $(targ).offset().top;
 		
 		}
 </script>
