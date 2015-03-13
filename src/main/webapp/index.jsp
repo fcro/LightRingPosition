@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,12 +40,12 @@
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" placeholder="Identifiant" class="form-control">
+              <input type="text" class="form-control login" placeholder="Identifiant">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Mot de passe" class="form-control">
+              <input type="password" class="form-control password" placeholder="Mot de passe">
             </div>
-            <button type="submit" class="btn btn-success" id="signin">Connexion</button>
+            <input type="submit" class="btn btn-success" id="signinbtn" value="Connexion">
           </form>
         </div><!--/.navbar-collapse -->
       </div>
@@ -54,17 +54,19 @@
     <div class="container" id="homecontent">
     <aside class="signup">
         <p>Inscription</p>
+        <form>
         <table>
-            <tr><td><input type="text"id="login" maxlength=20 placeholder="Identifiant" class="form-control"></td></tr>
+            <tr><td><input type="text" class="form-control login" maxlength=20 placeholder="Identifiant"></td></tr>
             <tr><td><input type="email" id="email" maxlength=50  placeholder="Adresse e-mail" class="form-control"></td></tr>
             <tr><td><input type="text" id="nickname" maxlength=20 placeholder="Pseudo" class="form-control"></td></tr>
-            <tr><td><input type="password" id="password" maxlength=20 placeholder="Mot de passe" class="form-control"></td></tr>
-            <tr><td><input type="submit" id="signup" class="btn btn-primary btn-lg" role="button" value="M'inscrire"><td></tr>
+            <tr><td><input type="password" class="form-control password" maxlength=20 placeholder="Mot de passe"></td></tr>
+            <tr><td><input type="submit" id="signupbtn" class="btn btn-primary btn-lg" role="button" value="M'inscrire"><td></tr>
         </table>
+        </form>
     </aside>
 
     <div class="row">
-        <div class="col-md-7">
+        <div id="indexmsg" class="col-md-7">
           <h1>Viens, on est bien</h1>
           <p>Sans déconner ce jeu déchire. Inscrivez-toi vite !</p>
           <p><a class="btn btn-default" href="#" role="button">En savoir plus &raquo;</a></p>
@@ -85,9 +87,6 @@
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src=js/account.js></script>
-    <script>
-        $("#signup").click(createAccount);
-    </script>
   </body>
 </html>
 
