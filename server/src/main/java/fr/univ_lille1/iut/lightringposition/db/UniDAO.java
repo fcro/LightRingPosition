@@ -69,5 +69,8 @@ public interface UniDAO {
 	@Mapper(UserMapper.class)
 	User findUserByLogin(@Bind("login") String login);
 
+	@SqlQuery("SELECT login FROM USER WHERE login = :login AND password = :password")
+	String getLoginByLoginPassword(@Bind("login") String login, @Bind("password") String password);
+
 	void close();
 }

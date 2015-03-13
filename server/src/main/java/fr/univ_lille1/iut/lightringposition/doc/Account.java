@@ -30,7 +30,13 @@ public class Account {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String authenticate(LoginPwd loginPwd) {
-		return "TESTFAIL";
+		String loginInDB = DBUtil.getDAO().getLoginByLoginPassword
+				(loginPwd.getLogin(),PwdEncrypt.encrypt(loginPwd.getPassword()));
+
+		if (loginInDB != null && loginInDB.equals(loginPwd.getLogin()))
+			return "ok";
+
+		return "echec";
 	}
 
 	@POST

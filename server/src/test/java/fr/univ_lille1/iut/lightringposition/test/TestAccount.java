@@ -88,12 +88,12 @@ public class TestAccount extends JerseyTest {
 		Entity<LoginPwd> loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
 
 		assertEquals("ok", target("/account/auth").request(MediaType.TEXT_PLAIN)
-				.post(loginPwdEntity));
+				.post(loginPwdEntity).readEntity(String.class));
 
 		loginPwd.setPassword("nope");
 		loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
 
 		assertEquals("echec", target("/account/auth").request(MediaType.TEXT_PLAIN)
-				.post(loginPwdEntity));
+				.post(loginPwdEntity).readEntity(String.class));
 	}
 }
