@@ -1,21 +1,27 @@
 package fr.univ_lille1.iut.lightringposition.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
-import fr.univ_lille1.iut.lightringposition.game.ListeJoueur;
+import fr.univ_lille1.iut.lightringposition.game.Joueur;
 
 
 
 public class TestListeJoueur {
-	ListeJoueur listeJoueur = new ListeJoueur(3);
-
+	List<Joueur> liste = new ArrayList<Joueur>();
+	
 	@Test
 	public void testNombreJoueur() {
-		assertTrue(listeJoueur.getListeJoueur().size()>0);
-		assertEquals(listeJoueur.getListeJoueur().size(),3);
-		assertTrue(listeJoueur.getListeJoueur().get(2).equals("toto"));
+		for(int i=0;i<liste.size();i++) {
+			liste.add(new Joueur("toto"));
+		}
+		assertTrue(liste.size()>0);
+		assertEquals(liste.size(),3);
 	}
 	
 	
