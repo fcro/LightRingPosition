@@ -4,6 +4,7 @@ public class Joueur {
 	private String nom;
 	private int nbCase;
 	private int score;
+	private int id;
 	
 	public Joueur(){
 		
@@ -12,6 +13,12 @@ public class Joueur {
 		this.setNom(nom);
 	}
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNom() {
 		return nom;
 	}

@@ -24,8 +24,10 @@ public class PlateauJeu{
 	public Plateau getPlateau(){
 		for(int i=0;i<4;i++) {
 			liste.add(new Joueur("toto"));
+			liste.get(i).setId(i);
 		}
 		p.generation();
+		p.placementJoueur();
 		return p; 
 	}
 }

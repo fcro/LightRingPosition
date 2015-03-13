@@ -9,32 +9,79 @@
 			afficherPlateau(data)
 		});
 	});
+	;
 
+	canvas_height=0;
+	canvas_width=0;
+	taille_plateau=0;
+	x=0;
+	y=0;
+	
 	function afficherPlateau(data) {
 
 		var canvas = document.getElementById("canvasEl");
+		canvas.height = document.body.clientWidth / 2 - 200;
+		canvas.width = document.body.clientWidth / 2 - 200;
+		canvas_height = canvas.height;
+		canvas_width = canvas.width;
+		taille_plateau = data.taille;
 		var context = canvas.getContext("2d");
 		var height = canvas.height;
 		var width = canvas.width;
 		var taille = data.taille;
+		var colors = [ 'aqua', 'blue', 'gray', 'green', 'lime', 'maroon',
+				'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
+				'yellow' ];
 
-			for(var i=0;i<data.taille;i++) {
-				for(var j=0;j<data.taille;j++) {
-					context.strokeRect ((width/taille)*i,(height/taille)*j,width/taille,height/taille);
-					console.log(data.plateau[i].item[j].estObstacle)
-					if(data.plateau[i].item[j].estObstacle===true) {
-						context.fillRect ((width/taille)*i,(height/taille)*j,width/taille,height/taille);
-					}
+		console.log(colors);
+		for ( var i = 0; i < data.taille; i++) {
+			for ( var j = 0; j < data.taille; j++) {
+				context.strokeRect((width / taille) * i, (height / taille) * j,
+						width / taille, height / taille);
+				if (data.plateau[i].item[j].estObstacle === true) {
+					context.fillRect((width / taille) * i, (height / taille)
+							* j, width / taille, height / taille);
+				} else if (data.plateau[i].item[j].occupant != undefined) {
+
+					context.fillStyle = colors[data.plateau[i].item[j].occupant.id];
+					context.fillRect((width / taille) * i, (height / taille)
+							* j, width / taille, height / taille);
+					context.fillStyle = "#000000";
 				}
 			}
-		 
-		
+		}
 	}
-	
-	
+
+	$(document).ready(function() {
+
+		$("#canvasEl").bind("click", function(e) {
+			canvasClick(e);
+		});
+
+	});
+
+	function canvasClick(e) {
+		var targ;
+		if (!e)
+			e = window.event;
+		if (e.target)
+			targ = e.target;
+		else if (e.srcElement)
+			targ = e.srcElement;
+		if (targ.nodeType == 3) // defeat Safari bug
+			targ = targ.parentNode;
+		var x = e.pageX - $(targ).offset().left;
+		var y = e.pageY - $(targ).offset().top;
+		
+		}
 </script>
 </head>
 <body>
-	<canvas id="canvasEl" width="600" height="600"></canvas>
+	<center>
+		<h1>LIGHT RING POSITION</h1>
+	</center>
+	<center>
+		<canvas id="canvasEl"></canvas>
+	</center>
 </body>
 </html>

@@ -9,7 +9,8 @@ public class TestGame {
 		List<Joueur> liste = new ArrayList<Joueur>();
 		for(int i=0;i<4;i++) {
 			liste.add(new Joueur("toto"));
-		}
+			liste.get(i).setId(i);
+			}
 		Plateau p=new Plateau(20, liste);
 		p.generation();
 		p.placementJoueur();
