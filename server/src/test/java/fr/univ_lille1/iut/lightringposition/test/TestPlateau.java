@@ -9,7 +9,7 @@ public class TestPlateau {
 	@Test
 	public void test(){
 		for(int i=0;i<1000000;i++){
-			Plateau p = new Plateau(20);
+			Plateau p = new Plateau(20,3);
 			p.generation();
 			assertTrue(p.getVal() <= 80);
 			assertTrue(p.getVal() >=40);
