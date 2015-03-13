@@ -13,7 +13,7 @@ public class User {
 	public User() {}
 
 	public User(String login, String password, String email, String nickname) throws InvalidUserException {
-		if (login.length() > 20 || password.length() > 20 || email.length() > 50
+		if (login.length() > 20  || email.length() > 50
 				|| nickname.length() > 20)
 			throw new InvalidUserException();
 		this.login = login;
@@ -69,7 +69,7 @@ public class User {
 	}
 
 	public boolean isValidNewUser() {
-		return this.login != null && this.password != null && this.email != null
-				&& this.nickname != null && this.avatar == null;
+		return this.login != null && this.password != null && this.password.length() <= 20
+				&& this.email != null && this.nickname != null && this.avatar == null;
 	}
 }
