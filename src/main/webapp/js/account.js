@@ -1,3 +1,8 @@
+$(document).ready(function() {
+    $("#signupbtn").click(createAccount);
+    $("#signinbtn").click(connect);
+});
+
 var createAccount = function() {
     $.ajax({
         method: 'POST',
@@ -37,6 +42,3 @@ var connect = function() {
 
     return false;
 }
-
-$("#signupbtn").click(createAccount);
-$("#signinbtn").click(connect);

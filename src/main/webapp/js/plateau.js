@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	plateau();
 });
-;
 
 function plateau() {
 	var path = "webapi/jeu/plateau";
