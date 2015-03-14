@@ -22,6 +22,8 @@ public class Account {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserInfo(@PathParam("login") String login) {
 		User user = DBUtil.getDAO().findUserByLogin(login);
+		DBUtil.closeDAO();
+
 		return user;
 	}
 
@@ -32,6 +34,7 @@ public class Account {
 	public Response authenticate(LoginPwd loginPwd) {
 		String loginInDB = DBUtil.getDAO().getLoginByLoginPassword
 				(loginPwd.getLogin(),PwdEncrypt.encrypt(loginPwd.getPassword()));
+		DBUtil.closeDAO();
 
 		if (loginInDB != null && loginInDB.equals(loginPwd.getLogin()))
 			return Response.ok("Identifiants valides").build();
@@ -50,6 +53,8 @@ public class Account {
 
 		DBUtil.getDAO().insertUser(user.getLogin(), PwdEncrypt.encrypt(user.getPassword()),
 				user.getEmail(), user.getNickname(), null);
+		DBUtil.closeDAO();
+
 		return Response.status(201).entity("Utilisateur créé").build();
 	}
 }

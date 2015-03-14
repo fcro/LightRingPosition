@@ -2,10 +2,14 @@ package fr.univ_lille1.iut.lightringposition.db;
 
 import java.io.File;
 
+import javax.sql.DataSource;
+
+import org.h2.jdbcx.JdbcConnectionPool;
 import org.skife.jdbi.v2.DBI;
 
 public class DBUtil {
 	private static String dbUrl = "jdbc:h2:./lrp";
+	private static DataSource ds;
 	private static DBI dbi;
 	private static UniDAO dao;
 
@@ -15,8 +19,10 @@ public class DBUtil {
 	 * @return instance de UniDAO
 	 */
 	public static UniDAO getDAO() {
+		if (ds == null)
+			ds = JdbcConnectionPool.create(dbUrl, "dba", "");
 		if (dbi == null)
-			dbi = new DBI(dbUrl, "dba", "");
+			dbi = new DBI(ds);
 		if (dao == null)
 			dao = dbi.open(UniDAO.class);
 
@@ -33,10 +39,9 @@ public class DBUtil {
 	}
 
 	/**
-	 * Ferme le DAO et la DBI associée
+	 * Ferme le DAO
 	 */
 	public static void closeDAO() {
 		dao.close();
-		dbi.close(UniDAO.class);
 	}
 }
