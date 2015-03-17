@@ -38,8 +38,8 @@ public class Account {
 		User userInDB = DBUtil.getDAO().findUserByLoginPassword
 				(loginPwd.getLogin(), PwdEncrypt.encrypt(loginPwd.getPassword()));
 
-		if (userInDB != null && req != null) {
-			if (!UserSessions.isUserConnected(userInDB)) {
+		if (userInDB != null) {
+			if (!UserSessions.isUserConnected(userInDB) && req != null) {
 				HttpSession session = req.getSession(true);
 				UserSessions.addUser(userInDB, session);
 			}
