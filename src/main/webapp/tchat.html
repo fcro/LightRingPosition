@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,7 +6,6 @@
 <link type="text/css" rel="stylesheet" href="tchat.css" />
 </head>
 <body>
-//verifier que l'utilisateur est bien connecte et faire marcher sortir du tchat
 <div id="wrapper">
     <div id="menu">
         <p class="welcome">Bienvenue dans le tchat.<b></b></p>
@@ -15,17 +15,19 @@
      
     <div id="chatbox"></div>
      
-    <form name="message" action="">
+    <form name="message" method="get">
         <input name="usermsg" type="text" id="usermsg" size="63" />
-        <input name="submitmsg" type="submit"  id="submitmsg" value="Send" onclick=""/>
+        <input name="submitmsg" type="submit"  id="submitmsg" value="Send"/>
     </form>
 </div>
 <script>
-//Load the file containing the chat log
-	function loadLog(){		
+	$("#submitmsg").click(function(){
+		var html = Document.getElementById("usermsg");		
 		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
 		$.ajax({
-			url: "log.html",
+			type:"post",
+			data:html,
+			url: "webapi/tchat/send ",
 			cache: false,
 			success: function(html){		
 				$("#chatbox").html(html); //Insert chat log into the #chatbox div	
@@ -38,9 +40,17 @@
 		  	},
 		});
 	}
+function loadLog(){
+$.ajax({
+type: "get",
+url: "webapi/tchat",
+success: function(html){		
+				$("#chatbox").html(html);
+}
+});
+}
 setInterval (loadLog, 2500);	//Reload file every 2500 ms 
 </script>
-
 
 </body>
 </html>
