@@ -99,42 +99,134 @@ public class Plateau {
 			listeJoueurs.get(i).setCoordY(y);
 		}
 	}
-	
+
 	public boolean verifCavalier(Case[][] p, Joueur joueur, int coordX, int coordY) {
 		if(!p[coordX][coordY].getEstVide()) return false;
 		else if(((Math.abs(joueur.getCoordX()-coordX) == 1 && Math.abs(joueur.getCoordY() - coordY)==2)) 
 				||((Math.abs(joueur.getCoordX()-coordX) == 2 && Math.abs(joueur.getCoordY() - coordY)==1)) ) return true;
 		else return false;
 	}
-	
+
 	public void deplacement(Case[][] p, Joueur joueur, int coordX, int coordY) {
 		if(verifCavalier(p,joueur,coordX,coordY)) {
-		p[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
-		p[joueur.getCoordX()][joueur.getCoordY()].setEstVide(true);
-		p[coordX][coordY].setOccupant(joueur);
-		joueur.setCoordX(coordX);
-		joueur.setCoordY(coordY);
-		coloriage(p,joueur,coordX,coordY);
-		if (PlateauJeu.idx +1 >= listeJoueurs.size()){
-			PlateauJeu.idx = 0;
-		} else {
-			PlateauJeu.idx++;
-		}
-	
+			p[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
+			p[joueur.getCoordX()][joueur.getCoordY()].setEstVide(true);
+			p[coordX][coordY].setOccupant(joueur);
+			p[coordX][coordY].setEstVide(false);
+			joueur.setCoordX(coordX);
+			joueur.setCoordY(coordY);
+			coloriage(p,joueur,coordX,coordY);
+			if (PlateauJeu.idx +1 >= listeJoueurs.size()){
+				PlateauJeu.idx = 0;
+			} else {
+				PlateauJeu.idx++;
+			}
+
 		}
 	}
-	
+
 	public void coloriage(Case[][] p, Joueur joueur, int coordX, int coordY) {
-		if (coordX > 0 && coordX <19 && coordY > 0 && coordY < 19 &&
-				(p[coordX][coordY].getEstVide() || p[coordX][coordY].getProprietaire().equals(joueur) )) {
-			p[coordX+1][coordY].setProprietaire(joueur);
-			p[coordX+1][coordY].setEstVide(true);
-		} else if(coordX > 0 && coordX <19 && coordY > 0 && coordY < 19 && p[coordX][coordY].getProprietaire() != joueur) {
-			p[coordX][coordY].setProprietaire(joueur);
-			p[coordX][coordY].setEstVide(true);
+		c_ligne(p, joueur, coordX, coordY);
+		c_colonne(p, joueur, coordX, coordY);
+		c_diagonale(p, joueur, coordX, coordY);
+	}
+
+	public void c_ligne(Case[][] p, Joueur joueur, int CoordX, int CoordY) {
+		int i = 1;
+		int j = -1;
+		while(CoordX+i < p.length  && (p[CoordX+i][CoordY].getEstVide())) {
+			if (p[CoordX+i][CoordY].getProprietaire() != null && !p[CoordX+i][CoordY].getProprietaire().equals(joueur)) { 
+				p[CoordX+i][CoordY].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+i][CoordY].setProprietaire(joueur);
+				i++;
+			}
+		}
+		while (CoordX + j >= 0 && (p[CoordX+j][CoordY].getEstVide())) {
+			if (p[CoordX+j][CoordY].getProprietaire() != null && !p[CoordX+j][CoordY].getProprietaire().equals(joueur)) {
+				p[CoordX+j][CoordY].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+j][CoordY].setProprietaire(joueur);
+				j--;
+			}
+		}
+	}
+
+	public void c_colonne(Case[][] p, Joueur joueur, int CoordX, int CoordY) {
+		int i = 1;
+		int j = -1;
+		while(CoordY+i < p.length  && (p[CoordX][CoordY+i].getEstVide())) {
+			if (p[CoordX][CoordY+i].getProprietaire() != null && !p[CoordX][CoordY+i].getProprietaire().equals(joueur)) {
+				p[CoordX][CoordY+i].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX][CoordY+i].setProprietaire(joueur);
+				i++;
+			}
+		}
+
+		while (CoordY + j >= 0 && (p[CoordX][CoordY+j].getEstVide())) {
+			if (p[CoordX][CoordY+j].getProprietaire() != null && !p[CoordX][CoordY+j].getProprietaire().equals(joueur)) {
+				p[CoordX][CoordY+j].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX][CoordY+j].setProprietaire(joueur);
+				j--;
+			}
 		}
 	}
 	
+	public void c_diagonale(Case[][] p, Joueur joueur, int CoordX, int CoordY) {
+		int i = 1;
+		int j = -1;
+		while(CoordX+i < p.length && CoordY+i < p.length  && (p[CoordX+i][CoordY+i].getEstVide())) {
+			if (p[CoordX+i][CoordY+i].getProprietaire() != null && !p[CoordX+i][CoordY+i].getProprietaire().equals(joueur)) {
+				p[CoordX+i][CoordY+i].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+i][CoordY+i].setProprietaire(joueur);
+				i++;
+			}
+		}
+		i=1;
+		j=-1;
+		while (CoordX + j >= 0 && CoordY + j >= 0 && (p[CoordX+j][CoordY+j].getEstVide())) {
+			if (p[CoordX+j][CoordY+j].getProprietaire() != null && !p[CoordX+j][CoordY+j].getProprietaire().equals(joueur)) {
+				p[CoordX+j][CoordY+j].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+j][CoordY+j].setProprietaire(joueur);
+				j--;
+			}
+		}
+		i=1;
+		j=-1;
+		while(CoordX+i < p.length && CoordY+j >= 0  && (p[CoordX+i][CoordY+j].getEstVide())) {
+			if (p[CoordX+i][CoordY+j].getProprietaire() != null && !p[CoordX+i][CoordY+j].getProprietaire().equals(joueur)) {
+				p[CoordX+i][CoordY+j].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+i][CoordY+j].setProprietaire(joueur);
+				i++;
+				j--;
+			}
+		}
+		i=1;
+		j=-1;
+		while (CoordX + j >= 0 && CoordY + i < p.length && (p[CoordX+j][CoordY+i].getEstVide())) {
+			if (p[CoordX+j][CoordY+i].getProprietaire() != null && !p[CoordX+j][CoordY+i].getProprietaire().equals(joueur)) {
+				p[CoordX+j][CoordY+i].setProprietaire(joueur);
+				break;
+			} else {
+				p[CoordX+j][CoordY+i].setProprietaire(joueur);
+				i++;
+				j--;
+			}
+		}
+	}
+
 	public String afficherPlateau() {
 		String ch =".";
 		for(int i=0;i<plateau.length;i++) {

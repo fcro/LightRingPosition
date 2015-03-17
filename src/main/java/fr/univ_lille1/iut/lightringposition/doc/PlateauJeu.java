@@ -34,11 +34,8 @@ public class PlateauJeu{
 	public Plateau deplacement(@PathParam("x") int x, @PathParam("y") int y){
 		System.out.println(p.getPlateau()[x][y].getEstVide());
 		if(p.verifCavalier(p.getPlateau(),p.getListeJoueurs().get(idx),x,y)) {
-			System.out.println("Coup correcte");
 			p.deplacement(p.getPlateau(), p.getListeJoueurs().get(idx), x, y);
-		} else {
-			System.out.println("Coup FAUX");
-		}
+		} 
 		return p; 
 	}
 }

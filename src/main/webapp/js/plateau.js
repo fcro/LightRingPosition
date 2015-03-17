@@ -53,7 +53,7 @@ function afficherPlateau(data) {
 
 						context.fillStyle = colors[data.plateau[i].item[j].proprietaire.id];
 						context.fillRect((width / taille) * i, (height / taille)
-								* j, width / taille, height / taille);
+								* j, (width / taille), height / taille);
 						context.fillStyle = "#000000";
 					}
 			}
