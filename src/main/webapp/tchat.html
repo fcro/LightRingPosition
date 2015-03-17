@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>Chat</title>
+<script src='js/jquery.min.js'></script>
 <link type="text/css" rel="stylesheet" href="tchat.css" />
 </head>
 <body>
@@ -17,12 +18,12 @@
      
     <form name="message" method="get">
         <input name="usermsg" type="text" id="usermsg" size="63" />
-        <input name="submitmsg" type="submit"  id="submitmsg" value="Send"/>
+        <input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer"/>
     </form>
 </div>
 <script>
+var html = document.getElementById("usermsg");		
 	$("#submitmsg").click(function(){
-		var html = Document.getElementById("usermsg");		
 		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
 		$.ajax({
 			type:"post",
@@ -37,10 +38,11 @@
 				if(newscrollHeight > oldscrollHeight){
 					$("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
 				}				
-		  	},
+		  	}
 		});
 	}
-function loadLog(){
+
+function loadLog (){
 $.ajax({
 type: "get",
 url: "webapi/tchat",
@@ -50,6 +52,7 @@ success: function(html){
 });
 }
 setInterval (loadLog, 2500);	//Reload file every 2500 ms 
+
 </script>
 
 </body>
