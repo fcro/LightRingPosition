@@ -28,33 +28,17 @@ public class PlateauJeu{
 		p.placementJoueur();
 		return p; 
 	}
-	
-	@POST
-	@Path("coord/{x}/{y}/envoi")
-	@Produces(MediaType.APPLICATION_JSON)
-	public void postCoord(@PathParam("x") int x, @PathParam("y") int y) {
-		p.getCoord()[0] = x;
-		p.getCoord()[1] = y;
-		System.out.println("Coord x :" + x + " Coord y :"+y);
-		System.out.println(liste.size());
-	}
-	
-	@POST
-	@Path("coord/{x}/{y}/verif")
-	public void verifCoord(@PathParam("x") int x, @PathParam("y") int y) {
-		System.out.println(p.getPlateau()[x][y].getEstVide());
-		if(p.verifCavalier(p.getPlateau(),p.getListeJoueurs().get(idx),x,y)) {
-			System.out.println("Coup correcte");
-		} else {
-			System.out.println("Coup FAUX");
-		}
-	}
-	
+		
 	@GET
 	@Path("coord/{x}/{y}/move")
 	public Plateau deplacement(@PathParam("x") int x, @PathParam("y") int y){
-		p.deplacement(p.getPlateau(), p.getListeJoueurs().get(idx), x, y);
-
+		System.out.println(p.getPlateau()[x][y].getEstVide());
+		if(p.verifCavalier(p.getPlateau(),p.getListeJoueurs().get(idx),x,y)) {
+			System.out.println("Coup correcte");
+			p.deplacement(p.getPlateau(), p.getListeJoueurs().get(idx), x, y);
+		} else {
+			System.out.println("Coup FAUX");
+		}
 		return p; 
 	}
 }

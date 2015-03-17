@@ -12,7 +12,7 @@ public class Plateau {
 	private Case[][]plateau;
 	private int taille;
 	private char valeurObstacles;
-	private int[] coord = new int[2];
+
 
 	public Plateau() {}
 
@@ -46,15 +46,6 @@ public class Plateau {
 
 	public int getVal() {
 		return val;
-	}
-
-
-	public int[] getCoord() {
-		return coord;
-	}
-
-	public void setCoord(int[] coord) {
-		this.coord = coord;
 	}
 
 	public List<Joueur> getListeJoueurs() {
@@ -119,15 +110,28 @@ public class Plateau {
 	public void deplacement(Case[][] p, Joueur joueur, int coordX, int coordY) {
 		if(verifCavalier(p,joueur,coordX,coordY)) {
 		p[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
+		p[joueur.getCoordX()][joueur.getCoordY()].setEstVide(true);
 		p[coordX][coordY].setOccupant(joueur);
 		joueur.setCoordX(coordX);
 		joueur.setCoordY(coordY);
+		coloriage(p,joueur,coordX,coordY);
 		if (PlateauJeu.idx +1 >= listeJoueurs.size()){
 			PlateauJeu.idx = 0;
 		} else {
 			PlateauJeu.idx++;
 		}
 	
+		}
+	}
+	
+	public void coloriage(Case[][] p, Joueur joueur, int coordX, int coordY) {
+		if (coordX > 0 && coordX <19 && coordY > 0 && coordY < 19 &&
+				(p[coordX][coordY].getEstVide() || p[coordX][coordY].getProprietaire().equals(joueur) )) {
+			p[coordX+1][coordY].setProprietaire(joueur);
+			p[coordX+1][coordY].setEstVide(true);
+		} else if(coordX > 0 && coordX <19 && coordY > 0 && coordY < 19 && p[coordX][coordY].getProprietaire() != joueur) {
+			p[coordX][coordY].setProprietaire(joueur);
+			p[coordX][coordY].setEstVide(true);
 		}
 	}
 	
