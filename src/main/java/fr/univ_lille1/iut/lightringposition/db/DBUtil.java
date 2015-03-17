@@ -11,7 +11,6 @@ public class DBUtil {
 	private static String dbUrl = "jdbc:h2:./lrp";
 	private static DataSource ds;
 	private static DBI dbi;
-	private static UniDAO dao;
 
 	/**
 	 * Crée (si elle n'existe pas) et retourne un objet permettant d'appeler
@@ -23,10 +22,12 @@ public class DBUtil {
 			ds = JdbcConnectionPool.create(dbUrl, "dba", "");
 		if (dbi == null)
 			dbi = new DBI(ds);
-		if (dao == null)
-			dao = dbi.open(UniDAO.class);
 
-		return dao;
+		return dbi.open(UniDAO.class);
+	}
+
+	public static DataSource getDs() {
+		return ds;
 	}
 
 	public static void useTestDB() {
@@ -36,12 +37,5 @@ public class DBUtil {
 	public static void deleteTestDB() {
 		new File("test_lrp.mv.db").delete();
 		new File("test_lrp.trace.db").delete();
-	}
-
-	/**
-	 * Ferme le DAO
-	 */
-	public static void closeDAO() {
-		dao.close();
 	}
 }

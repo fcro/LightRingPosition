@@ -2,9 +2,15 @@ package fr.univ_lille1.iut.lightringposition.struct;
 
 import java.io.File;
 
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import fr.univ_lille1.iut.lightringposition.util.UserSessions;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
-public class User {
+@XmlRootElement
+public class User implements HttpSessionBindingListener {
 
 	private String login;
 	private String password;
@@ -28,6 +34,16 @@ public class User {
 			File avatar) throws InvalidUserException {
 		this(login, password, email, nickname);
 		this.avatar = avatar;
+	}
+
+	@Override
+	public void valueBound(HttpSessionBindingEvent event) {
+		UserSessions.addUser(this, event.getSession());
+	}
+
+	@Override
+	public void valueUnbound(HttpSessionBindingEvent event) {
+		UserSessions.removeUser(this);
 	}
 
 	public String getLogin() {
@@ -73,5 +89,56 @@ public class User {
 	public boolean isValidNewUser() {
 		return this.login != null && this.password != null && this.password.length() <= 20
 				&& this.email != null && this.nickname != null && this.avatar == null;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result
+				+ ((nickname == null) ? 0 : nickname.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (avatar == null) {
+			if (other.avatar != null)
+				return false;
+		} else if (!avatar.equals(other.avatar))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (nickname == null) {
+			if (other.nickname != null)
+				return false;
+		} else if (!nickname.equals(other.nickname))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
 	}
 }

@@ -11,6 +11,5 @@ public class AdminTest {
 	@Path("dbcreate")
 	public void createDB() {
 		DBUtil.getDAO().initDB();
-		DBUtil.closeDAO();
 	}
 }
