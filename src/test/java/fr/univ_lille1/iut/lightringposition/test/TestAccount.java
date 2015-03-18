@@ -75,25 +75,4 @@ public class TestAccount extends JerseyTest {
 				.get(new GenericType<User>(){});
 		assertNull(user);
 	}
-
-	/**
-	 * Vérifie que l'on peut s'authentifier avec un identifiant valide et
-	 * que la connexion est refusée sinon
-	 */
-	@Test
-	public void test_C_authenticate() {
-		LoginPwd loginPwd = new LoginPwd();
-		loginPwd.setLogin("test");
-		loginPwd.setPassword("pass");
-		Entity<LoginPwd> loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
-
-		assertEquals(200, target("/account/auth").request()
-				.post(loginPwdEntity).getStatus());
-
-		loginPwd.setPassword("nope");
-		loginPwdEntity = Entity.entity(loginPwd, MediaType.APPLICATION_JSON);
-
-		assertEquals(403, target("/account/auth").request()
-				.post(loginPwdEntity).getStatus());
-	}
 }
