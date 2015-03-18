@@ -23,7 +23,8 @@
 </div>
 <script>
 var html = document.getElementById("usermsg");		
-	$("#submitmsg").click(function(){
+	
+	var test = $("#submitmsg").click(function(){
 		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; // redimensionner avant requete
 		$.ajax({
 			type:"post",
@@ -41,7 +42,7 @@ var html = document.getElementById("usermsg");
 				}				
 		  	}
 		});
-	}
+	});
 
 function loadLog (){
 $.ajax({
