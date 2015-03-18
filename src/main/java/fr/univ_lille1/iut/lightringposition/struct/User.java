@@ -2,15 +2,12 @@ package fr.univ_lille1.iut.lightringposition.struct;
 
 import java.io.File;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import fr.univ_lille1.iut.lightringposition.util.UserSessions;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
 @XmlRootElement
-public class User implements HttpSessionBindingListener {
+public class User {
 
 	private String login;
 	private String password;
@@ -34,16 +31,6 @@ public class User implements HttpSessionBindingListener {
 			File avatar) throws InvalidUserException {
 		this(login, password, email, nickname);
 		this.avatar = avatar;
-	}
-
-	@Override
-	public void valueBound(HttpSessionBindingEvent event) {
-		UserSessions.addUser(this, event.getSession());
-	}
-
-	@Override
-	public void valueUnbound(HttpSessionBindingEvent event) {
-		UserSessions.removeUser(this);
 	}
 
 	public String getLogin() {
