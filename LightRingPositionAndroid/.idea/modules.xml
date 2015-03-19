@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LightRingPosition.iml" filepath="$PROJECT_DIR$/LightRingPosition.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LightRingPositionAndroid.iml" filepath="$PROJECT_DIR$/LightRingPositionAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/menulightring/menulightring.iml" filepath="$PROJECT_DIR$/menulightring/menulightring.iml" />
     </modules>
