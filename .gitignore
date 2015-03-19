@@ -7,6 +7,9 @@
 target/
 log/
 
+# Maven
+.settings/
+
 # H2 DB
 *.db
 
