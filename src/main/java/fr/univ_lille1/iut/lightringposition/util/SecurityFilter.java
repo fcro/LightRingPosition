@@ -21,9 +21,8 @@ public class SecurityFilter implements ContainerRequestFilter {
 	public void filter(ContainerRequestContext requestContext) {
 		String auth = requestContext.getHeaderString("AUTHORIZATION");
 
-		if (auth == null) {
+		if (auth == null)
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-		}
 
 		auth = auth.substring("Basic ".length());
 
@@ -33,12 +32,11 @@ public class SecurityFilter implements ContainerRequestFilter {
 		if (userPswd == null || userPswd.length != 2)
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 
-		WebSecurityContext securityContext = new WebSecurityContext(userPswd[0], userPswd[1], roleToCheck);
+		WebSecurityContext securityContext = new WebSecurityContext(userPswd[0], userPswd[1]);
 
 		if (securityContext.isUserInRole(roleToCheck))
 			requestContext.setSecurityContext(securityContext);
-		else {
+		else
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
-		}
 	}
 }

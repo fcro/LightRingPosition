@@ -21,7 +21,7 @@ public class AdminTest {
 	@GET
 	@Path("canihazcheezbrgr")
 	public Response cheezbrgr(ContainerRequestContext context) {
-		new SecurityFilter("admin").filter(context);
+		new SecurityFilter("ADMIN").filter(context);
 
 		return Response.ok("Ressource accessible").build();
 	}

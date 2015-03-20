@@ -9,11 +9,9 @@ import fr.univ_lille1.iut.lightringposition.struct.User;
 
 public class WebSecurityContext implements SecurityContext {
 	private final User user;
-	private final String roleToCheck;
 
-	public WebSecurityContext(String login, String pwd, String roleToCheck) {
+	public WebSecurityContext(String login, String pwd) {
 		this.user = DBUtil.getDAO().findUserByLoginPassword(login, pwd);
-		this.roleToCheck = roleToCheck;
 	}
 
 	@Override
@@ -23,8 +21,10 @@ public class WebSecurityContext implements SecurityContext {
 
 	@Override
 	public boolean isUserInRole(String roleToCheck) {
-		if (user.getRole().equals(roleToCheck))
-			return true;
+		if (user != null && roleToCheck != null)
+			if (Role.containsRole(user.getRole()) && Role.containsRole(roleToCheck))
+				if (Role.valueOf(user.getRole()) == Role.valueOf(roleToCheck))
+					return true;
 
 		return false;
 	}

@@ -27,7 +27,7 @@ public class UserMapper implements ResultSetMapper<User> {
 		else
 			try {
 				return new User(r.getString("login"), r.getString("password"), r.getString("email"),
-						r.getString("role"), r.getString("nickname"));
+						r.getString("nickname"), r.getString("role"));
 			} catch (InvalidUserException e) {
 				return null;
 			}

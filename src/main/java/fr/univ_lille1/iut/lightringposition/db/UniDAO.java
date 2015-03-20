@@ -14,7 +14,7 @@ public interface UniDAO {
 			"password		VARCHAR(32)			NOT NULL," +
 			"email			VARCHAR(50)			NOT NULL," +
 			"nickname		VARCHAR(20)			NOT NULL," +
-			"role			VARCHAR(6)			NOT NULL," +
+			"role			VARCHAR(5)			NOT NULL," +
 			"avatar			VARCHAR(255));" +
 
 			"CREATE TABLE FRIEND(" +
@@ -35,7 +35,7 @@ public interface UniDAO {
 			"FOREIGN KEY	(winner)			REFERENCES USER(login));" +
 
 			"INSERT INTO USER(login, password, email, nickname, role)" +
-			"VALUES('admin', 'admin', 'admin@localhost', 'ADMIN');")
+			"VALUES('admin', 'admin', 'admin@localhost', 'administrateur', 'ADMIN');")
 	void initDB();
 
 	@SqlUpdate("INSERT INTO USER(login, password, email, nickname, role, avatar)" +
