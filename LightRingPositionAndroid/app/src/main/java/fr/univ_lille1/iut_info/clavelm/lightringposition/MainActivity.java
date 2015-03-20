@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,18 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        final Button loginButton = (Button) findViewById(R.id.save);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, compte.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -96,4 +109,5 @@ public class MainActivity extends ActionBarActivity {
             error.setText("Le pseudo ou le mot de passe est incorrect");
         }
     }
+
 }

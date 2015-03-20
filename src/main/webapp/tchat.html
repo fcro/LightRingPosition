@@ -28,8 +28,9 @@ var html = document.getElementById("usermsg");
 		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; // redimensionner avant requete
 		$.ajax({
 			type:"post",
+			dataType : "html",
 			data:html,
-			url: "webapi/tchat/send ",
+			url: "webapi/tchat/send",
 			cache: false,
 			success: function(html){		
 				$("#chatbox").html(html); //insertion du html
