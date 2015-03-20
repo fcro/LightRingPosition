@@ -20,14 +20,14 @@ public class UserMapper implements ResultSetMapper<User> {
 		if (r.getString("avatar") != null)
 			try {
 				return new User(r.getString("login"), r.getString("password"), r.getString("email"),
-						r.getString("nickname"), new File(r.getString("avatar")));
+						r.getString("nickname"), r.getString("role"), new File(r.getString("avatar")));
 			} catch (InvalidUserException e) {
 				return null;
 			}
 		else
 			try {
 				return new User(r.getString("login"), r.getString("password"), r.getString("email"),
-						r.getString("nickname"));
+						r.getString("role"), r.getString("nickname"));
 			} catch (InvalidUserException e) {
 				return null;
 			}

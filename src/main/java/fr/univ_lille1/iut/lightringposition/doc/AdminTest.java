@@ -23,6 +23,6 @@ public class AdminTest {
 	public Response cheezbrgr(ContainerRequestContext context) {
 		new SecurityFilter("admin").filter(context);
 
-		return Response.ok().build();
+		return Response.ok("Ressource accessible").build();
 	}
 }

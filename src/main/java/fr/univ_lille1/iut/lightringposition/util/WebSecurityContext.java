@@ -4,15 +4,16 @@ import java.security.Principal;
 
 import javax.ws.rs.core.SecurityContext;
 
-public class WebSecurityContext implements SecurityContext {
-	private final String login;
-	private final String password;
-	private final String role;
+import fr.univ_lille1.iut.lightringposition.db.DBUtil;
+import fr.univ_lille1.iut.lightringposition.struct.User;
 
-	public WebSecurityContext(String user, String pwd, String role) {
-		this.login = user;
-		this.password = pwd;
-		this.role = role;
+public class WebSecurityContext implements SecurityContext {
+	private final User user;
+	private final String roleToCheck;
+
+	public WebSecurityContext(String login, String pwd, String roleToCheck) {
+		this.user = DBUtil.getDAO().findUserByLoginPassword(login, pwd);
+		this.roleToCheck = roleToCheck;
 	}
 
 	@Override
@@ -21,11 +22,9 @@ public class WebSecurityContext implements SecurityContext {
 	}
 
 	@Override
-	public boolean isUserInRole(String role) {
-		if (role != null) {
-			if (role.trim().equals(this.role))
-				return true;
-		}
+	public boolean isUserInRole(String roleToCheck) {
+		if (user.getRole().equals(roleToCheck))
+			return true;
 
 		return false;
 	}

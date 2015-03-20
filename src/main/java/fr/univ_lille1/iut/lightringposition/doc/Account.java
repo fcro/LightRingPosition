@@ -15,6 +15,7 @@ import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 @Path("account")
 public class Account {
+	private static final String DEFAULT_ROLE = "user";
 
 	@GET
 	@Path("{login}")
@@ -35,7 +36,7 @@ public class Account {
 			return Response.status(409).entity("Ce login est déjà utilisé").build();
 
 		DBUtil.getDAO().insertUser(user.getLogin(), PwdEncrypt.encrypt(user.getPassword()),
-				user.getEmail(), user.getNickname(), null);
+				user.getEmail(), user.getNickname(), DEFAULT_ROLE, null);
 
 		return Response.status(201).entity("Utilisateur créé").build();
 	}

@@ -17,7 +17,6 @@ import org.junit.runners.MethodSorters;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Account;
-import fr.univ_lille1.iut.lightringposition.struct.LoginPwd;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
@@ -44,7 +43,7 @@ public class TestAccount extends JerseyTest {
 	 */
 	@Test
 	public void test_A_createAccount() throws InvalidUserException {
-		User toCreate = new User("test", "pass", "addr@mail.tld", "pseudo");
+		User toCreate = new User("test", "pass", "addr@mail.tld", "pseudo", "USER");
 		Entity<User> userEntity = Entity.entity(toCreate, MediaType.APPLICATION_JSON);
 		int code = target("/account").request().post(userEntity).getStatus();
 		assertEquals(201, code);

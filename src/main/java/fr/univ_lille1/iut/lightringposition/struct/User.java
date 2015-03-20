@@ -13,11 +13,13 @@ public class User {
 	private String password;
 	private String email;
 	private String nickname;
+	private String role;
 	private File avatar;
 
 	public User() {}
 
-	public User(String login, String password, String email, String nickname) throws InvalidUserException {
+	public User(String login, String password, String email, String nickname, String role)
+			throws InvalidUserException {
 		if (login.length() > 20  || email.length() > 50
 				|| nickname.length() > 20)
 			throw new InvalidUserException();
@@ -25,11 +27,12 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.nickname = nickname;
+		this.role = role;
 	}
 
-	public User(String login, String password, String email, String nickname,
+	public User(String login, String password, String email, String nickname, String role,
 			File avatar) throws InvalidUserException {
-		this(login, password, email, nickname);
+		this(login, password, email, nickname, role);
 		this.avatar = avatar;
 	}
 
@@ -65,6 +68,14 @@ public class User {
 		this.nickname = nickname;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public File getAvatar() {
 		return avatar;
 	}
@@ -89,6 +100,7 @@ public class User {
 				+ ((nickname == null) ? 0 : nickname.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		return result;
 	}
 
@@ -125,6 +137,11 @@ public class User {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
 			return false;
 		return true;
 	}

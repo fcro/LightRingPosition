@@ -14,6 +14,7 @@ public interface UniDAO {
 			"password		VARCHAR(32)			NOT NULL," +
 			"email			VARCHAR(50)			NOT NULL," +
 			"nickname		VARCHAR(20)			NOT NULL," +
+			"role			VARCHAR(6)			NOT NULL," +
 			"avatar			VARCHAR(255));" +
 
 			"CREATE TABLE FRIEND(" +
@@ -31,13 +32,17 @@ public interface UniDAO {
 			"FOREIGN KEY	(login_a)			REFERENCES USER(login)," +
 			"FOREIGN KEY	(login_b)			REFERENCES USER(login)," +
 			"FOREIGN KEY	(login_c)			REFERENCES USER(login)," +
-			"FOREIGN KEY	(winner)			REFERENCES USER(login));")
+			"FOREIGN KEY	(winner)			REFERENCES USER(login));" +
+
+			"INSERT INTO USER(login, password, email, nickname, role)" +
+			"VALUES('admin', 'admin', 'admin@localhost', 'ADMIN');")
 	void initDB();
 
-	@SqlUpdate("INSERT INTO USER(login, password, email, nickname, avatar)" +
-			"VALUES(:login, :password, :email, :nickname, :avatar)")
+	@SqlUpdate("INSERT INTO USER(login, password, email, nickname, role, avatar)" +
+			"VALUES(:login, :password, :email, :nickname, :role, :avatar)")
 	void insertUser(@Bind("login") String login, @Bind("password") String password,
-			@Bind("email") String email, @Bind("nickname") String nickname, @Bind("avatar") String avatar);
+			@Bind("email") String email, @Bind("nickname") String nickname,
+			@Bind("role") String role, @Bind("avatar") String avatar);
 
 	@SqlQuery("SELECT * FROM USER WHERE login = :login")
 	User findUserByLogin(@Bind("login") String login);
