@@ -18,6 +18,7 @@ import org.junit.runners.MethodSorters;
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Account;
 import fr.univ_lille1.iut.lightringposition.struct.User;
+import fr.univ_lille1.iut.lightringposition.test.util.TestUtil;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -30,7 +31,10 @@ public class TestAccount extends JerseyTest {
 	@BeforeClass
 	public static void useTestDB() {
 		DBUtil.useTestDB();
-		DBUtil.getDAO().initDB();
+		if (!TestUtil.isDbCreated()) {
+			DBUtil.getDAO().initDB();
+			TestUtil.setDbCreated(true);
+		}
 	}
 
 	@AfterClass
