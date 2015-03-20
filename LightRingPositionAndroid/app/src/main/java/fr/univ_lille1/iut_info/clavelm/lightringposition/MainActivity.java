@@ -1,16 +1,43 @@
 package fr.univ_lille1.iut_info.clavelm.lightringposition;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
+    String strPseudo;
+    String strMDP;
 
+    public class AsyncGet extends AsyncTask<String, Long, String> {
+        protected QueryHandler qh;
+
+        public void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        public void onPostExecute(String result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected String doInBackground(String... url) {
+            try {
+                qh = new QueryHandler(url[0], strPseudo, strMDP);
+                return qh.get();
+            } catch (IOException e) {
+                return null;
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,20 +67,33 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void connect(View v){
-        TextView pseudo = (TextView)findViewById(R.id.pseudo);
-        TextView pwd = (TextView)findViewById(R.id.pwd);
-        String strPseudo = pseudo.getText().toString();
-        String strMDP =pwd.getText().toString();
-        if(strPseudo.equals("toto") && strMDP.equals("toto")){
-            System.out.println("On est entré ici");
-            Intent i = new Intent(this,MenuLightRingActivity.class);
+    public void connect(View v) {
+        TextView pseudo = (TextView) findViewById(R.id.pseudo);
+        TextView pwd = (TextView) findViewById(R.id.pwd);
+        strPseudo = pseudo.getText().toString();
+        strMDP = pwd.getText().toString();
+
+        if (strPseudo.equals("toto") && strMDP.equals("toto")) {
+            Intent i = new Intent(this, MenuLightRingActivity.class);
             startActivity(i);
-            }else{
+
+        } else if (strPseudo.equals("admin") && strMDP.equals("admin")) {
+            String response;
+            final String url = "http://www.perdu.com";
+            AsyncGet ag = new AsyncGet();
+            ag.execute(url);
+            try {
+                response = ag.get();
+                Toast.makeText(this, "Réponse de " + url + " : " + response,
+                        Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Aucune réponse reçue de " + url,
+                        Toast.LENGTH_LONG).show();
+            }
+
+        } else {
             TextView error = (TextView) findViewById(R.id.ErrorMessage);
             error.setText("Le pseudo ou le mot de passe est incorrect");
         }
-
-
     }
 }
