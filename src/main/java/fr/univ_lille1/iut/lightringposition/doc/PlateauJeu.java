@@ -18,7 +18,7 @@ import fr.univ_lille1.iut.lightringposition.game.Plateau;
 
 public class PlateauJeu{
 	static List<Joueur> liste = new ArrayList<Joueur>();
-	private static Plateau p=new Plateau(20, liste);
+	private static Plateau p=new Plateau(40,20, liste);
 	public static int idx = 0;	
 	@GET
 	@Path("plateau")
@@ -32,10 +32,11 @@ public class PlateauJeu{
 	@GET
 	@Path("coord/{x}/{y}/move")
 	public Plateau deplacement(@PathParam("x") int x, @PathParam("y") int y){
-		System.out.println(p.getPlateau()[x][y].getEstVide());
-		if(p.verifCavalier(p.getPlateau(),p.getListeJoueurs().get(idx),x,y)) {
-			p.deplacement(p.getPlateau(), p.getListeJoueurs().get(idx), x, y);
-		} 
+		if (p.getTour() == 0 ) {
+			System.out.println("Partie Termine");
+		} else if(p.verifCavalier(p,p.getListeJoueurs().get(idx),x,y)) {
+			p.deplacement(p, p.getListeJoueurs().get(idx), x, y);
+		}
 		return p; 
 	}
 }

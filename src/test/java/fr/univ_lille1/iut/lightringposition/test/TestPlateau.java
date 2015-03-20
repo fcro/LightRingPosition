@@ -17,7 +17,7 @@ public class TestPlateau {
 			liste.add(new Joueur("toto"));
 		}
 		for(int i=0;i<10000;i++){
-			Plateau p = new Plateau(20,liste);
+			Plateau p = new Plateau(20,20,liste);
 			p.generation();
 			assertTrue(p.getVal() <= 80);
 			assertTrue(p.getVal() >=40);

@@ -11,7 +11,7 @@ public class TestGame {
 			liste.add(new Joueur("toto"));
 			liste.get(i).setId(i);
 			}
-		Plateau p=new Plateau(20, liste);
+		Plateau p=new Plateau(20,20, liste);
 		p.generation();
 		p.placementJoueur();
 		System.out.println(p.afficherPlateau());
