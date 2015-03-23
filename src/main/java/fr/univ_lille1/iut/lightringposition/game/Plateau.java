@@ -1,5 +1,6 @@
 package fr.univ_lille1.iut.lightringposition.game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +14,8 @@ public class Plateau {
 	private int largeur, hauteur;
 	private char valeurObstacles;
 	private int tour = 100;
+	private int idx = 0;
+	private int[] countCase;
 
 	public Plateau() {}
 
@@ -25,6 +28,7 @@ public class Plateau {
 			this.listeJoueurs.add(new Joueur("toto"));
 			this.listeJoueurs.get(i).setId(i);
 		}
+
 	}
 
 	public void generation(){
@@ -79,6 +83,14 @@ public class Plateau {
 
 	public void setHauteur(int hauteur) {
 		this.hauteur = hauteur;
+	}
+
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
 
 	public char getValeurObstacles() {
@@ -136,10 +148,20 @@ public class Plateau {
 			p.setTour(p.getTour() - 1);
 			if (PlateauJeu.idx +1 >= listeJoueurs.size()){
 				PlateauJeu.idx = 0;
+				p.setIdx(0);
 			} else {
 				PlateauJeu.idx++;
+				p.setIdx(p.getIdx()+1);
 			}
 		}
+	}
+
+	public int[] getCountCase() {
+		return countCase;
+	}
+
+	public void setCountCase(int[] countCase) {
+		this.countCase = countCase;
 	}
 
 	public void coloriage(Plateau p, Joueur joueur, int coordX, int coordY) {
@@ -194,7 +216,7 @@ public class Plateau {
 			}
 		}
 	}
-	
+
 	public void c_diagonale(Plateau p, Joueur joueur, int CoordX, int CoordY) {
 		int i = 1;
 		int j = -1;
@@ -239,12 +261,33 @@ public class Plateau {
 			} else {
 				p.getPlateau()[CoordX+j][CoordY+i].setProprietaire(joueur);
 				i++;
-				
+
 				j--;
 			}
 		}
 	}
 
+	public List<Integer> totalCase() {
+		countCase = new int[getListeJoueurs().size()];
+		for(int i = 0; i < getCountCase().length; i++) {
+			countCase[i] = 0;
+		}
+		for(int i = 0; i<getLargeur();i++) {
+			for(int j = 0; j<getHauteur();j++) {
+				for(int k = 0 ; k<getListeJoueurs().size() ; k++) {
+					if((getPlateau()[i][j].getProprietaire() != null && getPlateau()[i][j].getProprietaire().getId() == k)
+							||(getPlateau()[i][j].getOccupant() != null && getPlateau()[i][j].getOccupant().getId() == k)) {
+						countCase[k]++;
+					}
+				}
+			}
+		}
+		List<Integer> score = new ArrayList<Integer>();
+		for(int i = 0 ; i <getListeJoueurs().size();i++) {
+			score.add(countCase[i]);
+		}
+		return score;
+	}
 
 	public String afficherPlateau() {
 		String ch =".";

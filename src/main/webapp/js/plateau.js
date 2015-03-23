@@ -6,23 +6,53 @@ x=0 ;
 y=0 ;
 
 
+$(document).ready(function() {
+
+	$("#canvasEl").bind("click", function(e) {
+		canvasClick(e);
+		deplacement();
+
+	});
+
+});
 
 $(document).ready(function() {
 	plateau();
 });
 
+
 function plateau() {
 	var path = "webapi/jeu/plateau";
 	$.getJSON(path, function(data) {
 		afficherPlateau(data)
+		afficherInformation(data)
+		afficherScore();
 	});
 }
+
+function afficherScore() {
+	var path = "webapi/jeu/count";
+	$.getJSON(path,function(data) {
+		document.getElementById('score').innerHTML += " Joueur ";
+		/*for(var i = 0; i<donnees.size;i++) {
+			document.getElementById('score').innerHTML += " Joueur "+ data.idx +" : " 
+			+ data.listeJoueurs[data.idx].nom + " possède " + donnees[data.idx] + " cases \n";
+		}*/
+	});
+}
+
+function afficherInformation(data) {
+	document.getElementById('information').innerHTML = "Au tour du Joueur " + data.idx + " : " + data.listeJoueurs[data.idx].nom + " de jouer ";
+	
+}
+	
+	
 
 function afficherPlateau(data) {
 
 	var canvas = document.getElementById("canvasEl");
-	canvas.height = window.innerHeight;
-	canvas.width = document.body.clientWidth ;
+	canvas.height = window.innerHeight - 400;
+	canvas.width = document.body.clientWidth - 100 ;
 	canvas_height = canvas.height;
 	canvas_width = canvas.width;
 	largeur_plateau = data.largeur;
@@ -63,17 +93,11 @@ function afficherPlateau(data) {
 			}
 		}
 	}
+	afficherInformation(data);
+	afficherScore(data);
+
 }
 
-
-$(document).ready(function() {
-
-	$("#canvasEl").bind("click", function(e) {
-		canvasClick(e);
-		deplacement();
-	});
-
-});
 
 function deplacement() {
 	var path = "webapi/jeu/coord/"+Math.floor(x/ (canvas_width/largeur_plateau))+"/"+Math.floor(y/ (canvas_height/hauteur_plateau))+"/move";

@@ -39,4 +39,17 @@ public class PlateauJeu{
 		}
 		return p; 
 	}
+	
+	@GET
+	@Path("count")
+	public List<Integer> countCase(){
+		List<Integer> a;
+		try {
+			a = p.totalCase();
+		} catch(Exception e) {
+			a = new ArrayList<Integer>();
+			System.out.println(e.getMessage());
+		}
+		return a;
+	}
 }
