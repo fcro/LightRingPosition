@@ -19,10 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".compte" />
-        <activity android:name="fr.univ_lille1.iut_info.clavelm.lightringposition.MenuLightRingActivity"
-            android:label="@string/title_activity_menu_light_ring"
-            >
-        </activity>
+        <activity android:name=".Scores" />
+
         <activity android:name=".Menu" />
     </application>
 

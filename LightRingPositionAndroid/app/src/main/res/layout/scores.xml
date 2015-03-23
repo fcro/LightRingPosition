@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffecfaff">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="101dp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        android:textSize="18dp"
+        android:text=" SCORES LIGHT RING POSITION"
+        android:gravity="center"
+        android:layout_span="8"></TextView>
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:text="FLORIAN"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:layout_column="3"></TextView>
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:text="MELVIN"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:layout_column="4"></TextView>
+
+            <TextView
+                android:id="@+id/TextView02"
+                android:text="BENJAMIN"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:layout_column="5"></TextView>
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:text="KAREN"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:layout_column="6"></TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:text="Classement"
+                android:id="@+id/textView2"
+                android:textStyle="bold"
+                android:layout_column="1"></TextView>
+
+            <TextView
+                android:text="1er"
+                android:id="@+id/textView3"
+                android:gravity="center_horizontal"
+                android:layout_column="3"></TextView>
+            <TextView
+                android:text="2e"
+                android:id="@+id/textView4"
+                android:gravity="center_horizontal"
+                android:layout_column="4"></TextView>
+            <TextView
+                android:text="3e"
+                android:id="@+id/textView5"
+                android:gravity="center_horizontal"
+                android:layout_column="5"></TextView>
+            <TextView
+                android:text="4e"
+                android:id="@+id/textView6"
+                android:gravity="center_horizontal"
+                android:layout_column="6"></TextView>
+        </TableRow>
+        <TableRow
+            android:layout_height="wrap_content"
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:text=" Points"
+                android:id="@+id/textView10"
+                android:textStyle="bold"
+                android:layout_column="1"></TextView>
+
+            <TextView
+                android:text="20"
+                android:id="@+id/textView11"
+                android:gravity="center_horizontal"
+                android:layout_column="3"></TextView>
+
+            <TextView
+                android:text="15"
+                android:id="@+id/textView12"
+                android:gravity="center_horizontal"
+                android:layout_column="4"></TextView>
+
+            <TextView
+                android:text="13"
+                android:id="@+id/textView13"
+                android:gravity="center_horizontal"
+                android:layout_column="5"></TextView>
+
+            <TextView
+                android:text="10"
+                android:id="@+id/textView14"
+                android:gravity="center_horizontal"
+                android:layout_column="6"></TextView>
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

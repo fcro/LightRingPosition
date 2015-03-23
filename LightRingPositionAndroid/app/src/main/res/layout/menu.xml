@@ -37,10 +37,9 @@
 
     <Button
         android:layout_width="233dp"
-        android:layout_height="27dp"
+        android:layout_height="wrap_content"
         android:text="Parties en cours"
-        android:id="@+id/button2"
-        android:layout_weight="0.08" />
+        android:id="@+id/button2" />
 
     <Button
         android:layout_width="wrap_content"
@@ -55,7 +54,7 @@
         android:id="@+id/button4" />
 
     <Button
-        android:layout_width="229dp"
+        android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:text="Inviter des amis"
         android:id="@+id/button5" />
@@ -64,6 +63,7 @@
         android:layout_width="232dp"
         android:layout_height="wrap_content"
         android:text="Top scores"
-        android:id="@+id/button6" />
+        android:id="@+id/button6"
+        android:onClick="affichageScores" />
 
 </LinearLayout>
