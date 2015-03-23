@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class compte extends Activity {
         }
     }
     public void creationCompte(View view){
+
         TextView nameDisplay = (TextView) findViewById(R.id.name_display);
         TextView passwordDisplay = (TextView) findViewById(R.id.password_display);
         TextView emailDisplay = (TextView) findViewById(R.id.email_display);
@@ -70,19 +72,28 @@ public class compte extends Activity {
         EXTRA_PSEUDO = nicknameDisplay.getText().toString();
         EXTRA_PASSWORD = passwordDisplay.getText().toString();
 
+        if(EXTRA_PASSWORD.isEmpty()||EXTRA_PSEUDO.isEmpty()||EXTRA_EMAIL.isEmpty()||EXTRA_NAME.isEmpty()) {
+            Toast.makeText(this, "Veuiller Remplir tous les Champs",
+                    Toast.LENGTH_LONG).show();
+        }else {
 
-        final String url = "http://www.perdu.com";
-        AsyncGet ag = new AsyncGet();
-        ag.execute(url);
-        try {
-           //faire le post
-            Toast.makeText(this, "Envoyé à" + url,
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "Echec de l'envoi à" + url,
-                    Toast.LENGTH_LONG).show();
+            final String url = "http://www.perdu.com";
+            AsyncGet ag = new AsyncGet();
+            ag.execute(url);
+            try {
+                //faire le post
+                Toast.makeText(this, "Envoyé à" + url,
+                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(compte.this, Menu.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                Toast.makeText(this, "Echec de l'envoi à" + url,
+                        Toast.LENGTH_LONG).show();
+            }
+
         }
 
     }
+
     }
 

@@ -23,6 +23,7 @@
             android:label="@string/title_activity_menu_light_ring"
             >
         </activity>
+        <activity android:name=".Menu" />
     </application>
 
 </manifest>

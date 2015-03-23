@@ -69,7 +69,8 @@
             android:layout_width="214dp"
             android:layout_height="wrap_content"
             android:text="Valider"
-            android:id="@+id/button"
+            android:id="@+id/valider"
             android:onClick="creationCompte" />
+
     </LinearLayout>
 </LinearLayout>
