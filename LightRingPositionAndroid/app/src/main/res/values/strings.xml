@@ -9,5 +9,7 @@
     <string name="pseudoHint">Pseudo</string>
     <string name="pwdHint">Mot de passe</string>
     <string name="ConnectButtonText">Connexion</string>
-
+    <string name="numero">Numero</string>
+    <string name="message">Message</string>
+    <string name="envoyer">Envoyer</string>
 </resources>

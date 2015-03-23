@@ -19,5 +19,9 @@ public class Menu extends Activity {
         Intent intent = new Intent(Menu.this, Scores.class);
         startActivity(intent);
     }
+    public void inviter(View view){
+        Intent intent = new Intent(Menu.this, Invitation.class);
+        startActivity(intent);
+    }
 }
 

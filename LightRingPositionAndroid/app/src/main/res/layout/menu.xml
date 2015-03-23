@@ -31,7 +31,7 @@
         android:layout_width="301dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Viens on est bien"
+        android:text="Viens on est bien!!!"
         android:id="@+id/textView5"
         android:layout_weight="0.34" />
 
@@ -57,7 +57,8 @@
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:text="Inviter des amis"
-        android:id="@+id/button5" />
+        android:id="@+id/button5"
+        android:onClick="inviter" />
 
     <Button
         android:layout_width="232dp"

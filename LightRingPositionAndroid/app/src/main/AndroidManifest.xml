@@ -19,9 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".compte" />
+        <activity android:name=".Invitation" />
         <activity android:name=".Scores" />
-
         <activity android:name=".Menu" />
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+
     </application>
 
 </manifest>
