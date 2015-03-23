@@ -44,18 +44,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        final Button loginButton = (Button) findViewById(R.id.save);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, compte.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
 
@@ -88,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
         strMDP = pwd.getText().toString();
 
         if (strPseudo.equals("toto") && strMDP.equals("toto")) {
-            Intent i = new Intent(this, MenuLightRingActivity.class);
+            Intent i =  new Intent(MainActivity.this, fr.univ_lille1.iut_info.clavelm.lightringposition.Menu.class);
             startActivity(i);
 
         } else if (strPseudo.equals("admin") && strMDP.equals("admin")) {
@@ -100,15 +88,22 @@ public class MainActivity extends ActionBarActivity {
                 response = ag.get();
                 Toast.makeText(this, "Réponse de " + url + " : " + response,
                         Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, fr.univ_lille1.iut_info.clavelm.lightringposition.Menu.class);
+                startActivity(intent);
             } catch (Exception e) {
                 Toast.makeText(this, "Aucune réponse reçue de " + url,
                         Toast.LENGTH_LONG).show();
             }
 
         } else {
-            TextView error = (TextView) findViewById(R.id.ErrorMessage);
-            error.setText("Le pseudo ou le mot de passe est incorrect");
+            Toast.makeText(this, "Identifiants incorrects",
+                    Toast.LENGTH_LONG).show();
         }
     }
+    public void save(View view){
+        Intent intent = new Intent(MainActivity.this, compte.class);
+        startActivity(intent);
+    }
+
 
 }
