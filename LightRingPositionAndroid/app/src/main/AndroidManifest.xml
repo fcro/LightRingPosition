@@ -22,6 +22,7 @@
         <activity android:name=".Invitation" />
         <activity android:name=".Scores" />
         <activity android:name=".Menu" />
+        <activity android:name=".PartiePrecedentes" />
     <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
 
     </application>
