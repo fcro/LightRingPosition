@@ -2,15 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>Chat</title>
 <script src='js/jquery.min.js'></script>
+<script src='js/tchat.js'></script>
 <link type="text/css" rel="stylesheet" href="tchat.css" />
 </head>
 <body>
 <div id="wrapper">
     <div id="menu">
         <p class="welcome">Bienvenue dans le tchat.<b></b></p>
-        <p class="logout"><a id="exit" href="index.jsp"> Sortir du tchat</a></p>
+        <p class="logout"><a id="exit" href="index.jsp">Sortir du tchat</a></p>
         <div style="clear:both"></div>
     </div>
      
@@ -21,43 +23,6 @@
         <input name="submitmsg" type="submit"  id="submitmsg" value="Envoyer"/>
     </form>
 </div>
-<script>
-var html = document.getElementById("usermsg");		
-	
-	var test = $("#submitmsg").click(function(){
-		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; // redimensionner avant requete
-		$.ajax({
-			type:"post",
-			dataType : "html",
-			data:html,
-			url: "webapi/tchat/send",
-			cache: false,
-			success: function(html){		
-				$("#chatbox").html(html); //insertion du html
-				
-				//Auto-scroll			
-				var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20; // redimensionner avant requete
-
-				if(newscrollHeight > oldscrollHeight){
-					$("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal');
-				}				
-		  	}
-		});
-	});
-
-function loadLog (){
-$.ajax({
-type: "get",
-url: "webapi/tchat",
-success: function(html){		
-				$("#chatbox").html(html);
-}
-});
-}
-setInterval (loadLog, 2500);	// et on rafraichit toutes les 2500 ms 
-
-</script>
-
 </body>
 </html>
 

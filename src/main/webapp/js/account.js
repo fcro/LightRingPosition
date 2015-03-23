@@ -26,18 +26,22 @@ var createAccount = function() {
 }
 
 var connect = function() {
+    localStorage.setItem('login', btoa($('#navbar .login').val()));
+    localStorage.setItem('pwd', btoa($('#navbar .password').val()));
     $.ajax({
-        method: 'POST',
-        contentType: 'application/json',
-        url: 'webapi/account/auth',
-        data: JSON.stringify({ login: $('#navbar .login').val(), password: $('#navbar .password').val() }),
+        method: 'GET',
+        contentType: 'text/html',
+        url: 'webapi/index',
+        beforeSend : function(req) {
+            req.setRequestHeader('Authorization', localStorage.getItem('legin') + ':' + localStorage.getItem('pwd'));
+        },
 
         success: function(res) {
             $("#indexmsg").append("<h2>Braval, tu viens de te connecter. Ça va les chevilles ?</h2>");
         },
         error: function(xhr, stat, exception) {
             $("#indexmsg").append("<h2>Tu sais pas te connecter ? Tu veux des cours d'internet ?</h2>");
-        },
+        }
     });
 
     return false;
