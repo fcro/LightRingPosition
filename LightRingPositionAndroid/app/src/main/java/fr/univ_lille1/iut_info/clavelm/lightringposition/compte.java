@@ -21,7 +21,6 @@ public class compte extends Activity {
     String EXTRA_PSEUDO = "user_pseudo";
     String EXTRA_EMAIL= "user_email";
     public class AsyncGet extends AsyncTask<String, Long, String> {
-        protected QueryHandler2 qh;
 
         public void onPreExecute() {
             super.onPreExecute();
@@ -34,8 +33,7 @@ public class compte extends Activity {
         @Override
         protected String doInBackground(String... url) {
             try {
-                qh = new QueryHandler2(url[0], EXTRA_NAME, EXTRA_EMAIL, EXTRA_PSEUDO, EXTRA_PASSWORD);
-                qh.post(EXTRA_NAME,EXTRA_EMAIL,EXTRA_PSEUDO,EXTRA_PASSWORD);
+                BDDTools.entry(url[0], EXTRA_NAME, EXTRA_EMAIL, EXTRA_PSEUDO, EXTRA_PASSWORD);
                 return "OK";
             } catch (IOException e) {
                 return null;

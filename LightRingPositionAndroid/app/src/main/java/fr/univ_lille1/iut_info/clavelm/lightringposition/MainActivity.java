@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
     String strMDP;
 
     public class AsyncGet extends AsyncTask<String, Long, String> {
-        protected QueryHandler qh;
+        protected BDDTools qh;
 
         public void onPreExecute() {
             super.onPreExecute();
@@ -32,8 +31,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(String... url) {
             try {
-                qh = new QueryHandler(url[0], strPseudo, strMDP);
-                return qh.get();
+                return BDDTools.identification(url[0], strPseudo, strMDP);
             } catch (IOException e) {
                 return null;
             }

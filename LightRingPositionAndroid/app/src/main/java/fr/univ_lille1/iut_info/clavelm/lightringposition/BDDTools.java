@@ -17,27 +17,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryHandler2 {
-    public String reponse ;
-    HttpPost requete;
-    AndroidHttpClient client;
-    public QueryHandler2(String url, String name, String email, String pseudo, String passwd) throws ClientProtocolException, IOException {
-        reponse = null;
+public  class BDDTools {
 
+    public static String identification(String url, String login, String password) throws ClientProtocolException, IOException {
+        String reponse = null;
 
-        requete = new HttpPost(url);
+        HttpGet requete = new HttpGet(url);
         requete.setHeader("Authorization", "Basic " +
-                Base64.encodeToString((name + ":" + passwd).getBytes(), Base64.DEFAULT));
-    client = AndroidHttpClient.newInstance(Build.MODEL);
+                Base64.encodeToString((login + ":" + password).getBytes(), Base64.DEFAULT));
+        AndroidHttpClient client = AndroidHttpClient.newInstance(Build.MODEL);
 
         try {
             reponse = client.execute(requete, new BasicResponseHandler());
         } finally {
             if (client != null) client.close();
         }
+        return reponse;
     }
 
-    public void post(String name, String email, String pseudo, String passwd) {
+    public static void entry(String url, String name, String email, String pseudo, String passwd) throws ClientProtocolException, IOException {
+        String reponse ;
+        HttpPost requete;
+        AndroidHttpClient client;
+        reponse = null;
+
+
+        requete = new HttpPost(url);
+        requete.setHeader("Authorization", "Basic " +
+                Base64.encodeToString((name + ":" + passwd).getBytes(), Base64.DEFAULT));
+        client = AndroidHttpClient.newInstance(Build.MODEL);
+
+        try {
+            reponse = client.execute(requete, new BasicResponseHandler());
+        } finally {
+            if (client != null) client.close();
+        }
 
         try {
             // Add your data
@@ -48,7 +62,7 @@ public class QueryHandler2 {
             nameValuePairs.add(new BasicNameValuePair("password",passwd));
 
 
-           requete.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            requete.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
             HttpResponse response;
@@ -62,7 +76,8 @@ public class QueryHandler2 {
         }
 
     }
+
+
+
+
 }
-
-
-
