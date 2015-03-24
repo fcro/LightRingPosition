@@ -10,8 +10,9 @@ log/
 # Maven
 .settings/
 
-# H2 DB
+# SQLite DB
 *.db
+*.db.test
 
 # Temp
 *~
