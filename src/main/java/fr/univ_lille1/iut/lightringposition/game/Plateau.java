@@ -138,6 +138,7 @@ public class Plateau {
 
 	public void deplacement(Plateau p, Joueur joueur, int coordX, int coordY) {
 		if(verifCavalier(p,joueur,coordX,coordY)) {
+			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setOccupant(null);
 			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
 			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setEstVide(true);
 			p.getPlateau()[coordX][coordY].setOccupant(joueur);

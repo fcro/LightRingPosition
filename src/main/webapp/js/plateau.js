@@ -5,6 +5,15 @@ hauteur_plateau=0;
 x=0 ;
 y=0 ;
 
+var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
+               'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
+               'yellow' ];
+var preload = ["../img/Mage-rouge.gif", "../img/Mage-rouge.gif", "../img/Mage-rouge.gif","../img/Mage-rouge.gif"];
+var images = [];
+for (i = 0; i < preload.length; i++) {
+    images[i] = new Image();
+    images[i].src = preload[i];
+}
 
 $(document).ready(function() {
 
@@ -26,23 +35,25 @@ function plateau() {
 	$.getJSON(path, function(data) {
 		afficherPlateau(data)
 		afficherInformation(data)
-		afficherScore();
+		afficherScore(data);
 	});
 }
 
-function afficherScore() {
+function afficherScore(data) {
 	var path = "webapi/jeu/count";
-	$.getJSON(path,function(data) {
-		document.getElementById('score').innerHTML += " Joueur ";
-		/*for(var i = 0; i<donnees.size;i++) {
-			document.getElementById('score').innerHTML += " Joueur "+ data.idx +" : " 
-			+ data.listeJoueurs[data.idx].nom + " possède " + donnees[data.idx] + " cases \n";
-		}*/
+	$.getJSON(path,function(donnees) {
+		document.getElementById('score').innerHTML ="";
+		for(var i = 0; i<donnees.score.length;i++) {
+			document.getElementById('score').innerHTML += " Joueur "+ i +" : " 
+			+ data.listeJoueurs[i].nom + " possede " + donnees.score[i] + " cases <br>";
+		}
 	});
 }
 
 function afficherInformation(data) {
-	document.getElementById('information').innerHTML = "Au tour du Joueur " + data.idx + " : " + data.listeJoueurs[data.idx].nom + " de jouer ";
+	document.getElementById('information').innerHTML = "Au tour du <b><FONT COLOR="+colors[data.idx]+" > Joueur "
+	+ data.idx + " : " + data.listeJoueurs[data.idx].nom + " </font></b> de jouer ";
+	document.getElementById('information').innerHTML +="<br> Il reste "+data.tour+" tour de jeu !";
 	
 }
 	
@@ -62,9 +73,7 @@ function afficherPlateau(data) {
 	var width = canvas.width;
 	var largeur = data.largeur;
 	var hauteur = data.hauteur;
-	var colors = [ 'aqua', 'blue', 'green', 'lime', 'maroon',
-	               'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
-	               'yellow' ];
+
 
 	var img = new Image();
 	img.src = "../img/case.png";
@@ -77,11 +86,13 @@ function afficherPlateau(data) {
 							* j, width / largeur, height / hauteur);
 				} else
 					if (data.plateau[i].item[j].occupant != undefined) {
-
+						
 						context.fillStyle = colors[data.plateau[i].item[j].occupant.id];
 						context.fillRect((width / largeur) * i, (height / hauteur)
 								* j, width / largeur, height / hauteur);
 						context.fillStyle = "#000000";
+						context.drawImage(images[data.plateau[i].item[j].occupant.id], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
+						
 					} 
 					else if (data.plateau[i].item[j].proprietaire != undefined) {
 
