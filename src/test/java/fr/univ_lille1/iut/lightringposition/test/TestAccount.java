@@ -18,7 +18,6 @@ import org.junit.runners.MethodSorters;
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Account;
 import fr.univ_lille1.iut.lightringposition.struct.User;
-import fr.univ_lille1.iut.lightringposition.test.util.TestUtil;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
@@ -32,13 +31,13 @@ public class TestAccount extends JerseyTest {
 	@BeforeClass
 	public static void useTestDB() {
 		DBUtil.useTestDB();
+		DBUtil.deleteDB();
 		DBUtil.initDB(PwdEncrypt.encrypt("admin"));
-		TestUtil.setDbCreated(true);
 	}
 
 	@AfterClass
 	public static void deleteTestDB() {
-		TestUtil.testFinished();
+		DBUtil.deleteDB();
 	}
 
 	/**

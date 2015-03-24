@@ -38,14 +38,14 @@ public class DBUtil {
 	}
 
 	public static void useTestDB() {
-		dbUrl += ".test";
+		if (!dbUrl.endsWith(".test"))
+			dbUrl += ".test";
 	}
 
 	public static void deleteDB() {
 		File f = new File(dbUrl);
-		if (f.exists()) {
+		if (f.exists())
 			f.delete();
-		}
 	}
 
 	public static void initDB(String adminPwd) {
