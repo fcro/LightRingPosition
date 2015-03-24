@@ -15,7 +15,7 @@ import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 @Path("account")
 public class Account {
-	private static final String DEFAULT_ROLE = "user";
+	private static final String DEFAULT_ROLE = "USER";
 
 	@GET
 	@Path("{login}")
