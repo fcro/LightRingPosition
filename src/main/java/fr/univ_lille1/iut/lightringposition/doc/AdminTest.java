@@ -6,6 +6,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
+import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
 
 @Path("admin")
@@ -13,7 +14,11 @@ public class AdminTest {
 	@GET
 	@Path("dbcreate")
 	public Response createDB() {
-		DBUtil.getDAO().initDB();
+		try {
+			DBUtil.initDB(PwdEncrypt.encrypt("admin"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return Response.ok().build();
 	}

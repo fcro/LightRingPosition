@@ -11,7 +11,7 @@ public class WebSecurityContext implements SecurityContext {
 	private final User user;
 
 	public WebSecurityContext(String login, String pwd) {
-		this.user = DBUtil.getDAO().findUserByLoginPassword(login, pwd);
+		this.user = DBUtil.getDAO().findUserByLoginPassword(login, PwdEncrypt.encrypt(pwd));
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class WebSecurityContext implements SecurityContext {
 	public boolean isUserInRole(String roleToCheck) {
 		if (user != null && roleToCheck != null)
 			if (Role.containsRole(user.getRole()) && Role.containsRole(roleToCheck))
-				if (Role.valueOf(user.getRole()) == Role.valueOf(roleToCheck))
+				if (Role.valueOf(user.getRole()) >= Role.valueOf(roleToCheck))
 					return true;
 
 		return false;

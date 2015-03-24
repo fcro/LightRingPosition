@@ -20,6 +20,7 @@ import fr.univ_lille1.iut.lightringposition.doc.Account;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 import fr.univ_lille1.iut.lightringposition.test.util.TestUtil;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
+import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestAccount extends JerseyTest {
@@ -32,7 +33,7 @@ public class TestAccount extends JerseyTest {
 	public static void useTestDB() {
 		DBUtil.useTestDB();
 		if (!TestUtil.isDbCreated()) {
-			DBUtil.getDAO().initDB();
+			DBUtil.initDB(PwdEncrypt.encrypt("admin"));
 			TestUtil.setDbCreated(true);
 		}
 	}
