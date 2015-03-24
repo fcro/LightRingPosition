@@ -26,14 +26,15 @@ var createAccount = function() {
 }
 
 var connect = function() {
-    localStorage.setItem('login', btoa($('#navbar .login').val()));
-    localStorage.setItem('pwd', btoa($('#navbar .password').val()));
+    localStorage.setItem('login', $('#navbar .login').val());
+    localStorage.setItem('pwd', $('#navbar .password').val());
+
     $.ajax({
         method: 'GET',
         contentType: 'text/html',
         url: 'webapi/index',
         beforeSend : function(req) {
-            req.setRequestHeader('Authorization', localStorage.getItem('legin') + ':' + localStorage.getItem('pwd'));
+            req.setRequestHeader('AUTHORIZATION', 'Basic ' + btoa(localStorage.getItem('login') + ':' + localStorage.getItem('pwd')));
         },
 
         success: function(res) {
