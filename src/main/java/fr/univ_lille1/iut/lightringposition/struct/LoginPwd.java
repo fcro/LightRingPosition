@@ -10,6 +10,11 @@ public class LoginPwd {
 
 	public LoginPwd() {}
 
+	public LoginPwd(String login, String password) {
+		this.login = login;
+		this.password = password;
+	}
+
 	public String getLogin() {
 		return login;
 	}
