@@ -1,0 +1,26 @@
+.titre{
+  font-size:30px;
+  font-weight:bold;
+  text-decoration:blink;
+  font-family: 'LearningCurveProRegular', Arial, serif;
+  font-style: italic;
+}
+
+.partie {
+border: medium solid #6495ed;
+border-collapse: collapse;
+width: 50%;
+}
+.col {
+ font-weight:bold;
+border: thin solid #6495ed;
+width: 50%;
+padding: 5px;
+background-color: #D0E3FA;
+}
+.col{
+border:1px dotted #6495ed;
+padding:5px;
+background-color:#EFF6FF;
+width:25%;
+}
