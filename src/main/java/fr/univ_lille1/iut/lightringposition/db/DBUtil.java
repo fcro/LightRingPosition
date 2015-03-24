@@ -41,8 +41,11 @@ public class DBUtil {
 		dbUrl += ".test";
 	}
 
-	public static void deleteTestDB() {
-		new File(dbUrl + ".test").delete();
+	public static void deleteDB() {
+		File f = new File(dbUrl);
+		if (f.exists()) {
+			f.delete();
+		}
 	}
 
 	public static void initDB(String adminPwd) {

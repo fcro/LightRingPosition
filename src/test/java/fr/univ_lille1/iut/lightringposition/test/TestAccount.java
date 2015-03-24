@@ -32,15 +32,13 @@ public class TestAccount extends JerseyTest {
 	@BeforeClass
 	public static void useTestDB() {
 		DBUtil.useTestDB();
-		if (!TestUtil.isDbCreated()) {
-			DBUtil.initDB(PwdEncrypt.encrypt("admin"));
-			TestUtil.setDbCreated(true);
-		}
+		DBUtil.initDB(PwdEncrypt.encrypt("admin"));
+		TestUtil.setDbCreated(true);
 	}
 
 	@AfterClass
 	public static void deleteTestDB() {
-		DBUtil.deleteTestDB();
+		TestUtil.testFinished();
 	}
 
 	/**
