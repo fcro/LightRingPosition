@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.AdminTest;
-import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 public class TestSecurity extends JerseyTest {
 	@Override
@@ -25,16 +24,18 @@ public class TestSecurity extends JerseyTest {
 	public static void useTestDB() {
 		DBUtil.useTestDB();
 		DBUtil.deleteDB();
-		DBUtil.initDB(PwdEncrypt.encrypt("admin"));
+		DBUtil.initDB("admin");
 	}
 
 	@AfterClass
 	public static void deleteTestDB() {
 		DBUtil.deleteDB();
 	}
+
 	@Test
 	public void testCheezbrgr() {
-		int code = target("/admin/canihazcheezbrgr").request().header("Authorization",
+		int code;
+		code = target("/admin/canihazcheezbrgr").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("admin:admin")).get().getStatus();
 		assertEquals(200, code);
 
