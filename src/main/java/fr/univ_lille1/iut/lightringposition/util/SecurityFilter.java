@@ -9,6 +9,9 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.internal.util.Base64;
 
+import fr.univ_lille1.iut.lightringposition.db.DBUtil;
+import fr.univ_lille1.iut.lightringposition.struct.User;
+
 @Priority(Priorities.AUTHENTICATION)
 public class SecurityFilter implements ContainerRequestFilter {
 	String roleToCheck;
@@ -18,7 +21,7 @@ public class SecurityFilter implements ContainerRequestFilter {
 	}
 
 	@Override
-	public void filter(ContainerRequestContext requestContext) {
+	public void filter(ContainerRequestContext requestContext) throws WebApplicationException {
 		String auth = requestContext.getHeaderString("AUTHORIZATION");
 
 		if (auth == null)
@@ -32,11 +35,16 @@ public class SecurityFilter implements ContainerRequestFilter {
 		if (userPswd == null || userPswd.length != 2)
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 
-		WebSecurityContext securityContext = new WebSecurityContext(userPswd[0], userPswd[1]);
+		userPswd[0] = userPswd[0].trim();
+		userPswd[1] = userPswd[1].trim();
 
-		if (securityContext.isUserInRole(roleToCheck))
-			requestContext.setSecurityContext(securityContext);
-		else
-			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
+		User user = DBUtil.getDAO().findUserByLoginPassword(userPswd[0], PwdEncrypt.encrypt(userPswd[1]));
+
+		if (user != null && roleToCheck != null)
+			if (Role.containsRole(user.getRole()) && Role.containsRole(roleToCheck))
+				if (Role.valueOf(user.getRole()) >= Role.valueOf(roleToCheck))
+					return;
+
+		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
 }
