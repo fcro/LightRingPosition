@@ -8,7 +8,7 @@ y=0 ;
 var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
                'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
                'yellow' ];
-var preload = ["../img/Mage-rouge.gif", "../img/Mage-rouge.gif", "../img/Mage-rouge.gif","../img/Mage-rouge.gif"];
+var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
 var images = [];
 for (i = 0; i < preload.length; i++) {
     images[i] = new Image();
@@ -76,7 +76,7 @@ function afficherPlateau(data) {
 
 
 	var img = new Image();
-	img.src = "../img/case.png";
+	img.src = "img/case.png";
 	img.onload = function () {
 		for ( var i = 0; i < data.largeur; i++) {
 			for ( var j = 0; j < data.hauteur; j++) {
