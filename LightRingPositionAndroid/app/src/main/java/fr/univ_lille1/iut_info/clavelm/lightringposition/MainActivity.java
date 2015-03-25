@@ -14,8 +14,8 @@ import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity {
-    String strPseudo;
-    String strMDP;
+    public static String strPseudo;
+    public  static String strMDP;
 
     public class AsyncGet extends AsyncTask<String, Long, String> {
         protected BDDTools qh;
@@ -98,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
     public void save(View view){
         Intent intent = new Intent(MainActivity.this, compte.class);
         startActivity(intent);

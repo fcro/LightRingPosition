@@ -20,6 +20,8 @@ public class compte extends Activity {
     String EXTRA_PASSWORD = "user_password";
     String EXTRA_PSEUDO = "user_pseudo";
     String EXTRA_EMAIL= "user_email";
+
+    //envoi de donnees pour un nouvel utilisateur
     public class AsyncGet extends AsyncTask<String, Long, String> {
 
         public void onPreExecute() {
@@ -59,6 +61,8 @@ public class compte extends Activity {
             nicknameDisplay.setText(intent.getStringExtra(EXTRA_PSEUDO));
         }
     }
+
+    //creation compte
     public void creationCompte(View view){
 
         TextView nameDisplay = (TextView) findViewById(R.id.name_display);

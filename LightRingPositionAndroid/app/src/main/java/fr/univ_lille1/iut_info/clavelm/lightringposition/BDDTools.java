@@ -4,8 +4,11 @@ import android.net.http.AndroidHttpClient;
 import android.os.Build;
 import android.util.Base64;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -15,6 +18,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -89,13 +93,54 @@ public  class BDDTools {
 
 
        requete = new HttpPost(url);
-       client = AndroidHttpClient.newInstance(Build.MODEL);
 
-       try {
-           reponse = client.execute(requete, new BasicResponseHandler());
-       } finally {
-           if (client != null) client.close();
-       }
+       requete.setHeader(new Header() {
+           @Override
+           public String getName() {
+               return "Authorization";
+           }
+
+           @Override
+           public String getValue() {
+               return null;
+           }
+
+
+           @Override
+           public HeaderElement[] getElements() throws ParseException {
+               return new HeaderElement[0];
+           }
+       });
+      final String text = MainActivity.strPseudo+":"+MainActivity.strMDP;
+// Sending side
+
+       requete.setHeader(new Header() {
+           @Override
+           public String getName(){
+               String res="";
+               try {
+                   res+= "Basic" + Base64.encodeToString(text.getBytes("UTF-8"), Base64.DEFAULT);
+               }catch( UnsupportedEncodingException e){
+                       ;
+                   }
+               return res;
+           }
+
+           @Override
+           public String getValue() {
+               return null;
+           }
+
+           @Override
+           public HeaderElement[] getElements() throws ParseException {
+               return new HeaderElement[0];
+           }
+       });
+
+
+        client = AndroidHttpClient.newInstance(Build.MODEL);
+
+
 
        try {
            // Add your data
@@ -113,6 +158,11 @@ public  class BDDTools {
        } catch (IOException e) {
            // TODO Auto-generated catch block
        }
+       try {
+           reponse = client.execute(requete, new BasicResponseHandler());
+       } finally {
+           if (client != null) client.close();
+       }
 
    }
 public static void deleteFriend(String url, String friendLogin)throws ClientProtocolException, IOException{
@@ -123,6 +173,51 @@ public static void deleteFriend(String url, String friendLogin)throws ClientProt
 
 
     requete = new HttpPost(url);
+
+    requete.setHeader(new Header() {
+        @Override
+        public String getName() {
+            return "Authorization";
+        }
+
+        @Override
+        public String getValue() {
+            return null;
+        }
+
+
+        @Override
+        public HeaderElement[] getElements() throws ParseException {
+            return new HeaderElement[0];
+        }
+    });
+    final String text = MainActivity.strPseudo+":"+MainActivity.strMDP;
+// Sending side
+
+    requete.setHeader(new Header() {
+        @Override
+        public String getName(){
+            String res="";
+            try {
+                res+= "Basic" + Base64.encodeToString(text.getBytes("UTF-8"), Base64.DEFAULT);
+            }catch( UnsupportedEncodingException e){
+                ;
+            }
+            return res;
+        }
+
+        @Override
+        public String getValue() {
+            return null;
+        }
+
+        @Override
+        public HeaderElement[] getElements() throws ParseException {
+            return new HeaderElement[0];
+        }
+    });
+
+
     client = AndroidHttpClient.newInstance(Build.MODEL);
 
     try {
@@ -134,7 +229,7 @@ public static void deleteFriend(String url, String friendLogin)throws ClientProt
     try {
         // Add your data
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-        nameValuePairs.add(new BasicNameValuePair("newFriend",friendLogin));
+        nameValuePairs.add(new BasicNameValuePair("delFriend",friendLogin));
         requete.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
         // Execute HTTP Post Request
@@ -151,6 +246,57 @@ public static void deleteFriend(String url, String friendLogin)throws ClientProt
 
 }
     public static ArrayList<User>listFriend(String theUrl)throws ClientProtocolException, IOException{
+        String reponse ;
+        HttpPost requete;
+        AndroidHttpClient client;
+        reponse = null;
+
+
+        requete = new HttpPost(theUrl);
+
+        requete.setHeader(new Header() {
+            @Override
+            public String getName() {
+                return "Authorization";
+            }
+
+            @Override
+            public String getValue() {
+                return null;
+            }
+
+
+            @Override
+            public HeaderElement[] getElements() throws ParseException {
+                return new HeaderElement[0];
+            }
+        });
+        final String text = MainActivity.strPseudo+":"+MainActivity.strMDP;
+// Sending side
+
+        requete.setHeader(new Header() {
+            @Override
+            public String getName(){
+                String res="";
+                try {
+                    res+= "Basic" + Base64.encodeToString(text.getBytes("UTF-8"), Base64.DEFAULT);
+                }catch( UnsupportedEncodingException e){
+                    ;
+                }
+                return res;
+            }
+
+            @Override
+            public String getValue() {
+                return null;
+            }
+
+            @Override
+            public HeaderElement[] getElements() throws ParseException {
+                return new HeaderElement[0];
+            }
+        });
+
 
         ArrayList<User> friends = new ArrayList<User>();
 

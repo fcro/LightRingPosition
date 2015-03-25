@@ -51,8 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Retrouver des amis"
-        android:id="@+id/textView20" />
+        android:text="Ajouter des amis"
+        android:id="@+id/textView20"
+        android:onClick="ajouter" />
 
     <EditText
         android:layout_width="match_parent"
@@ -95,7 +96,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Supprimer des amis"
-        android:id="@+id/textView28" />
+        android:id="@+id/textView28"
+        android:onClick="suppr" />
 
     <EditText
         android:layout_width="match_parent"
