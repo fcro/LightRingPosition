@@ -23,9 +23,9 @@ $(document).ready(function() {
 	window.addEventListener("resize", function(){afficherPlateau(JSONPlateau)}, true);
 });
 
-function buttonLancerPartie() {
+function buttonLancerPartie(data) {
 	lancerPartie()
-	plateau()
+	plateau(data)
 }
 
 function lancerPartie() {
@@ -37,21 +37,21 @@ function lancerPartie() {
 
 }
 
-function plateau() {
-	var path = "webapi/jeu/plateau";
+function plateau(num) {
+	var path = "webapi/jeu/plateau/"+num;
 	$.getJSON(path, function(data) {
         JSONPlateau = data;
-		afficherPlateau(JSONPlateau)
+		afficherPlateau(JSONPlateau,num)
 		$("#canvasEl").bind("click", function(e) {
 			canvasClick(e);
-			deplacement();
+			deplacement(num);
 
 		});
 	});
 }
 
-function afficherScore(data) {
-	var path = "webapi/jeu/count";
+function afficherScore(data,num) {
+	var path = "webapi/jeu/"+num+"/count";
 	$.getJSON(path,function(donnees) {
 		document.getElementById('score').innerHTML ="";
 		for(var i = 0; i<donnees.score.length;i++) {
@@ -70,7 +70,7 @@ function afficherInformation(data) {
 	
 	
 
-function afficherPlateau(data) {
+function afficherPlateau(data,num) {
 
 	var canvas = document.getElementById("canvasEl");
 	canvas.height = window.innerHeight - 350;
@@ -115,15 +115,15 @@ function afficherPlateau(data) {
 		}
 	}
 	afficherInformation(data);
-	afficherScore(data);
+	afficherScore(data,num);
 
 }
 
 
-function deplacement() {
-	var path = "webapi/jeu/coord/"+Math.floor(x/ (canvas_width/largeur_plateau))+"/"+Math.floor(y/ (canvas_height/hauteur_plateau))+"/move";
+function deplacement(num) {
+	var path = "webapi/jeu/"+num+"/coord/"+Math.floor(x/ (canvas_width/largeur_plateau))+"/"+Math.floor(y/ (canvas_height/hauteur_plateau))+"/move";
 	$.getJSON(path, function(data) {
-		afficherPlateau(data);
+		afficherPlateau(data,num);
 	});
 }
 

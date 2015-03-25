@@ -99,7 +99,12 @@
 				</p>
 				<p>
 					<a class="btn btn-default" href="#" role="button"
-						 onclick="buttonLancerPartie()" >Lancer Partie</a>
+						 onclick="buttonLancerPartie(0)" >Lancer Partie 0</a>
+				</p>
+				
+				<p>
+					<a class="btn btn-default" href="#" role="button"
+						 onclick="buttonLancerPartie(1)" >Lancer Partie 1</a>
 				</p>
 			</div>
 			<div  id="partie" >

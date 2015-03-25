@@ -147,11 +147,9 @@ public class Plateau {
 			joueur.setCoordY(coordY);
 			coloriage(p,joueur,coordX,coordY);
 			p.setTour(p.getTour() - 1);
-			if (PlateauJeu.idx +1 >= listeJoueurs.size()){
-				PlateauJeu.idx = 0;
+			if (p.getIdx() + 1>= listeJoueurs.size()){
 				p.setIdx(0);
 			} else {
-				PlateauJeu.idx++;
 				p.setIdx(p.getIdx()+1);
 			}
 		}
