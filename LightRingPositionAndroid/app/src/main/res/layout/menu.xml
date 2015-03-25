@@ -56,9 +56,9 @@
     <Button
         android:layout_width="188dp"
         android:layout_height="wrap_content"
-        android:text="Inviter des amis"
+        android:text="Gestion d&apos;amis"
         android:id="@+id/button5"
-        android:onClick="inviter" />
+        android:onClick="amis" />
 
     <Button
         android:layout_width="232dp"

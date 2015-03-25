@@ -19,8 +19,8 @@ public class Menu extends Activity {
         Intent intent = new Intent(Menu.this, Scores.class);
         startActivity(intent);
     }
-    public void inviter(View view){
-        Intent intent = new Intent(Menu.this, Invitation.class);
+    public void amis(View view){
+        Intent intent = new Intent(Menu.this, AboutFriend.class);
         startActivity(intent);
     }
 
