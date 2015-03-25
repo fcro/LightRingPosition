@@ -8,7 +8,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 
 @RegisterMapper(UserMapper.class)
-public interface UniDAO {
+public interface UserDAO {
 	@SqlUpdate("INSERT INTO USER(login, password, email, nickname, role, avatar)" +
 			"VALUES(:login, :password, :email, :nickname, :role, :avatar)")
 	void insertUser(@Bind("login") String login, @Bind("password") String password,
