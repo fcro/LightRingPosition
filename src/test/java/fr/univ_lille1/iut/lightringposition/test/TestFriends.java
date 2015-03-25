@@ -21,8 +21,6 @@ import org.junit.runners.MethodSorters;
 
 import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Friends;
-import fr.univ_lille1.iut.lightringposition.struct.User;
-import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
 import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -82,10 +80,10 @@ public class TestFriends extends JerseyTest {
 
 	@Test
 	public void test_C_DelFriend() {
-		assertEquals(Response.Status.OK, target("/friends/roger").request().header("Authorization",
+		assertEquals(Response.Status.OK.getStatusCode(), target("/friends/roger").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).delete().getStatus());
 
-		assertEquals(Response.Status.NOT_FOUND, target("/friends/roger").request().header("Authorization",
+		assertEquals(Response.Status.NOT_FOUND.getStatusCode(), target("/friends/roger").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).delete().getStatus());
 	}
 }
