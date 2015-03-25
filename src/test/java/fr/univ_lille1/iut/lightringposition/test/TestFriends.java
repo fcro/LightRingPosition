@@ -58,6 +58,7 @@ public class TestFriends extends JerseyTest {
 
 		assertEquals(Response.Status.CONFLICT.getStatusCode(), target("/friends").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).post(roger).getStatus());
+
 		assertEquals(Response.Status.NOT_FOUND.getStatusCode(), target("/friends").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).post(roro).getStatus());
 
@@ -67,15 +68,16 @@ public class TestFriends extends JerseyTest {
 
 	@Test
 	public void test_B_getFriends() {
-		List<User> list = new ArrayList<User>();
-		try {
-			list.add(new User("roger", "roger", "roger@wanarty.fr", "Gégé", "USER"));
-		} catch (InvalidUserException e) {
-			e.printStackTrace();
-		}
+		Entity<String> robert = Entity.entity("robert", MediaType.TEXT_PLAIN);
+		target("/friends").request().header("AUTHORIZATION",
+				"Basic " + Base64.encodeAsString("robert:robert")).post(robert);
+
+		List<String> list = new ArrayList<String>();
+		list.add("roger");
+		list.add("robert");
  
 		assertEquals(list, target("/friends/robert").request(MediaType.APPLICATION_JSON).
-				get(ArrayList.class));
+				get(List.class));
 	}
 
 	@Test
