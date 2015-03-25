@@ -169,8 +169,7 @@ function afficherScore(data,num) {
 }
 
 function afficherInformation(data) {
-	document.getElementById('information').innerHTML = "<span class=\"marge\"> Au tour du <b><FONT COLOR="+colors[data.idx]+" > Joueur "
-	+ data.idx + " : " + data.listeJoueurs[data.idx].nom + " </font></b> de jouer </span>";
+	document.getElementById('information').innerHTML = "<span class=\"marge\"> Au tour de <b><FONT COLOR="+colors[data.idx]+" >" + data.listeJoueurs[data.idx].nom + " </font></b> de jouer </span>";
 	document.getElementById('information').innerHTML +="<span class=\"marge\"> Il reste "+data.tour+" tour de jeu !</span>";
 
 }
