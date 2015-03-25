@@ -29,7 +29,7 @@ public class PlateauJeu{
 			return partie.get(numPartie);
 		} else {
 			List<Joueur> liste = new ArrayList<Joueur>();
-			Plateau p=new Plateau(40,20, liste);
+			Plateau p=new Plateau(liste);
 			partie.put(numPartie,p);
 			partie.get(numPartie).generation();
 			partie.get(numPartie).placementJoueur();

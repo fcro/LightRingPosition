@@ -1,3 +1,5 @@
+/* Variable Globale */
+
 canvas_height=0;
 canvas_width=0;
 largeur_plateau=0;
@@ -5,11 +7,18 @@ hauteur_plateau=0;
 x=0 ;
 y=0 ;
 
+
+
 var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
                'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
                'yellow' ];
 
-var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
+/*Chargement des images nécessaires "  */
+
+var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif",
+               "img/Mage-rouge.gif","img/Mage-rouge.gif", "img/Mage-rouge.gif", 
+               "img/Mage-rouge.gif","img/Mage-rouge.gif","img/Mage-rouge.gif",
+               "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
 var images = [];
 var JSONPlateau;
 
@@ -52,19 +61,28 @@ function plateau(num) {
 
 function afficherScore(data,num) {
 	var path = "webapi/jeu/"+num+"/count";
+	
 	$.getJSON(path,function(donnees) {
-		document.getElementById('score').innerHTML ="";
+		var nom="";
 		for(var i = 0; i<donnees.score.length;i++) {
-			document.getElementById('score').innerHTML += "<b><FONT color=" +colors[i]+" >  Joueur "+ i +" : " 
-			+ data.listeJoueurs[i].nom + "</font></b> possede " + donnees.score[i] + " cases <br>";
+			nom += "<td align=\"center\" width="+canvas_width/donnees.score.length+"><b><FONT color=" +colors[i]+"> Joueur "+ i +" : " 
+			 data.listeJoueurs[i].nom + "</font></b></td>";
 		}
+		
+		var score="";
+		for(var i = 0; i<donnees.score.length;i++) {
+			score += "<td align=\"center\" width="+canvas_width/donnees.score.length+"> " + donnees.score[i] + " </td>";
+		}
+		
+		document.getElementById('score').innerHTML ="<br><table><tr>"+nom+"</tr><tr>"+score+"</tr></table>";
+
 	});
 }
 
 function afficherInformation(data) {
-	document.getElementById('information').innerHTML = "Au tour du <b><FONT COLOR="+colors[data.idx]+" > Joueur "
-	+ data.idx + " : " + data.listeJoueurs[data.idx].nom + " </font></b> de jouer ";
-	document.getElementById('information').innerHTML +="<br> Il reste "+data.tour+" tour de jeu !";
+	document.getElementById('information').innerHTML = "<span class=\"marge\"> Au tour du <b><FONT COLOR="+colors[data.idx]+" > Joueur "
+	+ data.idx + " : " + data.listeJoueurs[data.idx].nom + " </font></b> de jouer </span>";
+	document.getElementById('information').innerHTML +="<span class=\"marge\"> Il reste "+data.tour+" tour de jeu !</span>";
 	
 }
 	
@@ -73,7 +91,7 @@ function afficherInformation(data) {
 function afficherPlateau(data,num) {
 
 	var canvas = document.getElementById("canvasEl");
-	canvas.height = window.innerHeight - 350;
+	canvas.height = window.innerHeight - 250;
 	canvas.width = document.body.clientWidth - 50  ;
 	canvas_height = canvas.height;
 	canvas_width = canvas.width;

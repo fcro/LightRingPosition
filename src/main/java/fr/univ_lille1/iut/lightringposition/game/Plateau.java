@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import fr.univ_lille1.iut.lightringposition.doc.PlateauJeu;
-
 public class Plateau {
 
 	private List<Joueur> listeJoueurs;
@@ -19,15 +17,18 @@ public class Plateau {
 
 	public Plateau() {}
 
-	public Plateau(int largeur, int hauteur, List<Joueur> listeJoueurs){
-		this.largeur = largeur;
-		this.hauteur = hauteur;
+	public Plateau(List<Joueur> listeJoueurs){
 		this.listeJoueurs = listeJoueurs;
-		this.plateau=new Case[largeur][hauteur];
-		for(int i=0;i<4;i++) {
-			this.listeJoueurs.add(new Joueur("toto"));
+		for(int i=0;i<7;i++) {
+			this.listeJoueurs.add(new Joueur("toto_"+i));
 			this.listeJoueurs.get(i).setId(i);
 		}
+	
+		this.largeur = this.listeJoueurs.size() * 6;
+		this.hauteur = this.listeJoueurs.size() * 4;
+
+		this.plateau=new Case[this.largeur][this.hauteur];
+		
 
 	}
 

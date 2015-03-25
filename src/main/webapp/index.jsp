@@ -16,6 +16,8 @@
 
 <!-- Custom styles for this template -->
 <link href="bootstrap/css/jumbotron.css" rel="stylesheet">
+<link href="plateau.css" rel="stylesheet">
+
 
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -112,18 +114,10 @@
 					<canvas id="canvasEl"></canvas>
 				</center>
 
-				<table cellpadding="0" cellspacing="90" border="0" align="center">
-					<tr>
-						<td valign=top>
-							<h1>Information</h1>
-							<div id="information"></div>
-						</td>
-						<td valign=top>
-							<h1>Scores</h1>
-							<div id="score"></div>
-						</td>
-					</tr>
-				</table>
+							<div id="information" align="center"></div>
+					 
+							<div id="score" align="center" ></div>
+				
 			</div>
 		</div>
 

@@ -3,3 +3,7 @@ table
 {
     border-collapse: separate; 
 }
+
+.marge {
+margin-left: 5em;
+}
