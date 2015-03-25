@@ -1,6 +1,5 @@
 package fr.univ_lille1.iut.lightringposition.doc;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -10,7 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -24,36 +25,53 @@ public class Friends {
 	@GET
 	@Path("{login}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getFriends(@PathParam("login") String login) {
-		SecurityFilter sf = new SecurityFilter("USER");
+	public List<String> getFriends(@PathParam("login") String login) {
+		List<String> friends;
 
-		List<User> list = new ArrayList<User>();
-		list.add(DBUtil.getUserDAO().findUserByLogin(login));
+		if (DBUtil.getUserDAO().findUserByLogin(login) == null)
+			throw new WebApplicationException(Response.Status.NOT_FOUND);
 
-		return list;
+		friends = DBUtil.getFriendDAO().findFriendsByLogin(login);
+
+		return friends;
 	}
 
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
-	public Response addFriend(ContainerRequestContext context, String login) {
-		User toAdd = DBUtil.getUserDAO().findUserByLogin(login);
-		if (toAdd != null)
-			return Response.status(Response.Status.CREATED).
-					entity("Utilisateur " + login + " ajouté en ami").build();
+	public Response addFriend(@Context ContainerRequestContext context, String friend) {
+		SecurityFilter sf = new SecurityFilter("USER");
+		sf.filter(context);
+		String login = sf.getLogin();
 
-		return Response.status(Response.Status.NOT_FOUND).
-				entity("L'utilisateur demandé n'existe pas").build();
+		User toAdd = DBUtil.getUserDAO().findUserByLogin(friend);
+
+		if (toAdd == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+
+		if (DBUtil.getFriendDAO().findFriendByLoginAndFriend(login, friend) != null)
+			return Response.status(Response.Status.CONFLICT).build();
+
+		DBUtil.getFriendDAO().insertFriend(login, friend);
+
+		return Response.status(Response.Status.CREATED).build();
 	}
 
 	@DELETE
-	@Path("{login}")
-	public Response deleteFriend(@PathParam("login") String login) {
-		User toRemove = DBUtil.getUserDAO().findUserByLogin(login);
-		if (toRemove != null)
-			return Response.status(Response.Status.OK).
-					entity("Utilisateur " + toRemove + " supprimé des amis").build();
+	@Path("{friend}")
+	public Response deleteFriend(@Context ContainerRequestContext context,
+			@PathParam("friend") String friend) {
+		SecurityFilter sf = new SecurityFilter("USER");
+		sf.filter(context);
+		String login = sf.getLogin();
 
-		return Response.status(Response.Status.NOT_FOUND).
-				entity("L'utilisateur demandé n'existe pas").build();
+		if (DBUtil.getUserDAO().findUserByLogin(friend) == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+
+		if (DBUtil.getFriendDAO().findFriendByLoginAndFriend(login, friend) == null)
+			return Response.status(Response.Status.NOT_FOUND).build();
+
+		DBUtil.getFriendDAO().insertFriend(login, friend);
+
+		return Response.status(Response.Status.OK).build();
 	}
 }
