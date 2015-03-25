@@ -2,7 +2,9 @@ package fr.univ_lille1.iut.lightringposition.doc;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,17 +20,17 @@ import fr.univ_lille1.iut.lightringposition.game.Plateau;
 
 public class PlateauJeu{
 
-	private static List<Plateau> partie = new ArrayList<Plateau>();
+	private static Map<Integer,Plateau> partie = new HashMap<Integer,Plateau>();
 	@GET
 	@Path("plateau/{partie}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Plateau getPlateau(@PathParam("partie") int numPartie){
-		if(partie.size() != numPartie && partie.get(numPartie) != null) {
+		if(partie.containsKey(numPartie)) {
 			return partie.get(numPartie);
 		} else {
 			List<Joueur> liste = new ArrayList<Joueur>();
 			Plateau p=new Plateau(40,20, liste);
-			partie.add(p);
+			partie.put(numPartie,p);
 			partie.get(numPartie).generation();
 			partie.get(numPartie).placementJoueur();
 			return partie.get(numPartie);
