@@ -150,7 +150,7 @@ public static void deleteFriend(String url, String friendLogin)throws ClientProt
 
 
 }
-    public static ArrayList<User>listFriend(String theUrl,String login)throws ClientProtocolException, IOException{
+    public static ArrayList<User>listFriend(String theUrl)throws ClientProtocolException, IOException{
 
         ArrayList<User> friends = new ArrayList<User>();
 

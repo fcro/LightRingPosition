@@ -54,6 +54,11 @@
         android:text="Retrouver des amis"
         android:id="@+id/textView20" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/champRet" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,6 +79,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView16" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/champInv" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textView19" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,9 +97,15 @@
         android:text="Supprimer des amis"
         android:id="@+id/textView28" />
 
-    <FrameLayout
-        android:layout_width="303dp"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/affichage"></FrameLayout>
+        android:id="@+id/champSup" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/champListe"
+        android:layout_weight="1.22" />
 
 </LinearLayout>
