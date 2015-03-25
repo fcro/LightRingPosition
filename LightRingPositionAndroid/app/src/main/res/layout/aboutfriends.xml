@@ -46,18 +46,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView18" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ajouter des amis"
-        android:id="@+id/textView20"
-        android:onClick="ajouter" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/champRet" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter des amis"
+        android:id="@+id/button"
+        android:onClick="ajouter" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,26 +81,20 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/champInv" />
+        android:id="@+id/champSup" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Supprimer des amis"
+        android:id="@+id/button5"
+        android:onClick="suppr" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textView19" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Supprimer des amis"
-        android:id="@+id/textView28"
-        android:onClick="suppr" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/champSup" />
 
     <TextView
         android:layout_width="match_parent"

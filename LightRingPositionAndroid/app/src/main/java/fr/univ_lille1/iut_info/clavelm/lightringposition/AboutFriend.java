@@ -114,9 +114,10 @@ public class AboutFriend extends Activity {
                 //ask
                 int debut=0;
                 for(int i=0;i<response.length();++i){
-                    if(response.charAt(i)=='+')
-                        liste.append(response.substring(debut,i)+"\n");
-                    debut=i+1;
+                    if(response.charAt(i)=='+') {
+                        liste.append(response.substring(debut, i) + "\n");
+                        debut = i + 1;
+                    }
 
                 }
 
@@ -132,9 +133,9 @@ public class AboutFriend extends Activity {
    public void suppr(View view){
        EditText sup=(EditText) findViewById(R.id.champSup);
 
-       if(sup.getText().toString().isEmpty())
+       if(sup.getText().toString().isEmpty()) {
            sup.setText("veuillez entrer un login");
-       else {
+       }else {
            aSupprimer += sup.getText().toString();
            final String url = "http://www.perdu.com";
             AsyncSupprimer ag = new AsyncSupprimer();
@@ -155,10 +156,10 @@ public class AboutFriend extends Activity {
     //clic ajout d'amis
     public void ajouter(View view) {
         EditText ret = (EditText) findViewById(R.id.champRet);
-        if (ret.getText().toString().isEmpty())
+        if (ret.getText().toString().isEmpty()) {
             ret.setText("veuillez entrer un login");
 
-        else {
+        } else {
             aAjouter += ret.getText().toString();
             final String url = "http://www.perdu.com";
             AsyncAjout ag = new AsyncAjout();
@@ -169,6 +170,7 @@ public class AboutFriend extends Activity {
                         Toast.LENGTH_LONG).show();
 
             } catch (Exception e) {
+                ret.setText("Echec de la recherchez d'amis");
                 Toast.makeText(this, "Echec de l'envoi à" + url,
                         Toast.LENGTH_LONG).show();
             }

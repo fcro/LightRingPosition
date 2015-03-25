@@ -22,7 +22,7 @@ public class Invitation extends Activity {
         //On récupère les deux EditText correspondant aux champs pour entrer le numéro et le message
         final EditText numero =(EditText)findViewById(R.id.numero);
         final EditText message = (EditText)findViewById(R.id.message);
-        message.setText(" Rejoins moi sur Light Ring Position:"+"\n"+ "http://localhost:8080/ "+"\n"+
+        message.setText(" Rejoins moi sur Light Ring Position:"+"\n"+ "http://localhost:8080/index.jsp "+"\n"+
                 "on va bien s'amuser");
         message.setEnabled(false);
         //On affecte un écouteur d'évènement au bouton
