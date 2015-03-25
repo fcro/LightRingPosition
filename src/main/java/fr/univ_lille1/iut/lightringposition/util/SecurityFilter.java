@@ -14,8 +14,9 @@ import fr.univ_lille1.iut.lightringposition.struct.User;
 
 @Priority(Priorities.AUTHENTICATION)
 public class SecurityFilter implements ContainerRequestFilter {
-	String roleToCheck;
-
+	private String roleToCheck;
+	private String login;
+	
 	public SecurityFilter(String roleToCheck) {
 		this.roleToCheck = roleToCheck;
 	}
@@ -40,9 +41,29 @@ public class SecurityFilter implements ContainerRequestFilter {
 
 		if (user != null && roleToCheck != null)
 			if (Role.containsRole(user.getRole()) && Role.containsRole(roleToCheck))
-				if (Role.valueOf(user.getRole()) >= Role.valueOf(roleToCheck))
+				if (Role.valueOf(user.getRole()) >= Role.valueOf(roleToCheck)) {
+					login = user.getLogin();
+					System.out.println(login);
 					return;
-
+				}
+		
 		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	}
+
+	public String getRoleToCheck() {
+		return roleToCheck;
+	}
+
+	public void setRoleToCheck(String roleToCheck) {
+		this.roleToCheck = roleToCheck;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
 }

@@ -6,7 +6,7 @@ largeur_plateau=0;
 hauteur_plateau=0;
 x=0 ;
 y=0 ;
-
+liste="";
 
 
 var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
@@ -27,10 +27,71 @@ for (i = 0; i < preload.length; i++) {
     images[i].src = preload[i];
 }
 
-$(document).ready(function() {
-	$("#partie").hide();
-	window.addEventListener("resize", function(){afficherPlateau(JSONPlateau)}, true);
-});
+
+
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
+
+
+
+function listerPartie() {
+	$(".signup").hide();
+	$("#indexmsg").hide();
+	$("#listePartie").show();
+	
+	var path = "webapi/loby/liste";
+	$.getJSON(path, function(data) {
+		var size = Object.size(data);
+		for(var i = 0; i < size; i++) {
+		
+		document.getElementById("listePartie").innerHTML+="<li><a class=\"btn btn-default\" href=\"#\" role=\"button\" " +
+			"onclick=\"rejoindrePartie("+i+")\" >Rejoindre Partie "+ i +"</a></li>";
+		}
+		document.getElementById("listePartie").innerHTML+="<br><a class=\"btn btn-default\" href=\"#\" role=\"button\" " +
+				"onclick=\"creerPartie()\" >Creer Partie</a>";
+	});
+	
+}
+
+function rejoindrePartie(data) {
+	var path ="webapi/loby/"+data+"/rejoindre";
+	$.getJSON(path, function(loby) {
+		var size = Object.size(loby);
+		document.getElementById("listePartie").innerHTML="";
+		for(var i = 0; i < size; i++) {
+			
+			document.getElementById("listePartie").innerHTML += "<li>"+loby[i].nom+"</li>";	
+			}
+	});
+}
+
+function creerPartie() {
+	 $.ajax({
+	        method: 'GET',
+	        contentType: 'text/html',
+	        url: 'webapi/loby/creer',
+	        beforeSend : function(req) {
+	            req.setRequestHeader('AUTHORIZATION', 'Basic ' + btoa(localStorage.getItem('login') + ':' + localStorage.getItem('pwd')));
+	            console.log('AUTHORIZATION', 'Basic ' + btoa(localStorage.getItem('login') + ':' + localStorage.getItem('pwd')))
+	        },
+
+	        success: function(data) {
+	            for(var i = 0; i<data.length;i++) {
+	            	document.getElementById("listePartie").innerHTML += "<li>"+data[i].nom+"</li>";	
+	            }   
+	        },
+	        error: function(xhr, stat, exception) {
+	            $("#indexmsg").append("<h2>Tu sais pas te connecter ? Tu veux des cours d'internet ?</h2>");
+	        }
+	    });
+}
 
 function buttonLancerPartie(data) {
 	lancerPartie()
@@ -164,3 +225,9 @@ function canvasClick(e) {
 	y = e.pageY - $(targ).offset().top;
 
 }
+
+
+$(document).ready(function() {
+	$("#partie").hide();
+	window.addEventListener("resize", function(){afficherPlateau(JSONPlateau)}, true);
+});
