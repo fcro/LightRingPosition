@@ -8,6 +8,7 @@ y=0 ;
 var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
                'navy', 'olive', 'orange', 'purple', 'red', 'silver', 'teal',
                'yellow' ];
+
 var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
 var images = [];
 for (i = 0; i < preload.length; i++) {
@@ -16,26 +17,33 @@ for (i = 0; i < preload.length; i++) {
 }
 
 $(document).ready(function() {
-
-	$("#canvasEl").bind("click", function(e) {
-		canvasClick(e);
-		deplacement();
-
-	});
-
+	$("#partie").hide();
+	
 });
 
-$(document).ready(function() {
-	plateau();
-});
+function buttonLancerPartie() {
+	lancerPartie()
+	plateau()
+}
 
+function lancerPartie() {
+	$(".signup").hide();
+	$("#indexmsg").hide();
+	$("#partie").show();
+	
+	document.getElementById("homecontent").style.width = "100%";
+
+}
 
 function plateau() {
 	var path = "webapi/jeu/plateau";
 	$.getJSON(path, function(data) {
 		afficherPlateau(data)
-		afficherInformation(data)
-		afficherScore(data);
+		$("#canvasEl").bind("click", function(e) {
+			canvasClick(e);
+			deplacement();
+
+		});
 	});
 }
 
@@ -44,8 +52,8 @@ function afficherScore(data) {
 	$.getJSON(path,function(donnees) {
 		document.getElementById('score').innerHTML ="";
 		for(var i = 0; i<donnees.score.length;i++) {
-			document.getElementById('score').innerHTML += " Joueur "+ i +" : " 
-			+ data.listeJoueurs[i].nom + " possede " + donnees.score[i] + " cases <br>";
+			document.getElementById('score').innerHTML += "<b><FONT color=" +colors[i]+" >  Joueur "+ i +" : " 
+			+ data.listeJoueurs[i].nom + "</font></b> possede " + donnees.score[i] + " cases <br>";
 		}
 	});
 }
@@ -62,8 +70,8 @@ function afficherInformation(data) {
 function afficherPlateau(data) {
 
 	var canvas = document.getElementById("canvasEl");
-	canvas.height = window.innerHeight - 400;
-	canvas.width = document.body.clientWidth - 100 ;
+	canvas.height = window.innerHeight - 350;
+	canvas.width = document.body.clientWidth - 50  ;
 	canvas_height = canvas.height;
 	canvas_width = canvas.width;
 	largeur_plateau = data.largeur;
@@ -73,7 +81,6 @@ function afficherPlateau(data) {
 	var width = canvas.width;
 	var largeur = data.largeur;
 	var hauteur = data.hauteur;
-
 
 	var img = new Image();
 	img.src = "img/case.png";
