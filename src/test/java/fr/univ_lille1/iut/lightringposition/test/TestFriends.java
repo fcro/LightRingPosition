@@ -1,6 +1,5 @@
 package fr.univ_lille1.iut.lightringposition.test;
 
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -58,7 +56,7 @@ public class TestFriends extends JerseyTest {
 		assertEquals(Response.Status.NOT_FOUND, target().request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).put(roro).getStatus());
 
-		assertEquals(Response.Status.FORBIDDEN, target().request().header("Authorization",
+		assertEquals(Response.Status.UNAUTHORIZED, target().request().header("Authorization",
 				"Basic " + Base64.encodeAsString("marcel:marcel")).put(roger).getStatus());
 	}
 
@@ -72,7 +70,7 @@ public class TestFriends extends JerseyTest {
 		}
  
 		assertEquals(list, target("/robert").request(MediaType.APPLICATION_JSON).
-				get(new GenericType<ArrayList<User>>(){}));
+				get(ArrayList.class));
 	}
 
 	@Test
