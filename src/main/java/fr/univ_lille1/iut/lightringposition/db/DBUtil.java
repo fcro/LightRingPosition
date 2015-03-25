@@ -17,20 +17,35 @@ public class DBUtil {
 	private static SQLiteDataSource ds;
 	private static DBI dbi;
 
-	/**
-	 * Crée (si elle n'existe pas) et retourne un objet permettant d'appeler
-	 * les méthodes de manipulation de base de donnée fournies par UniDAO
-	 * @return instance de UniDAO
-	 */
-	public static UserDAO getDAO() {
+	private static void initDSAndDBI() {
 		if (ds == null) {
 			ds = new SQLiteDataSource();
 			ds.setUrl("jdbc:sqlite:" + dbUrl);
 		}
 		if (dbi == null)
 			dbi = new DBI(ds);
+	}
+
+	/**
+	 * Crée (s'il n'existe pas) et retourne un objet permettant d'appeler
+	 * les méthodes de manipulation de base de donnée fournies par UserDAO
+	 * @return instance de UserDAO
+	 */
+	public static UserDAO getUserDAO() {
+		initDSAndDBI();
 
 		return dbi.open(UserDAO.class);
+	}
+
+	/**
+	 * Crée (s'il n'existe pas) et retourne un objet permettant d'appeler
+	 * les méthodes de manipulation de base de donnée fournies par FriendDAO
+	 * @return instance de FriendDAO
+	 */
+	public static FriendDAO getFriendDAO() {
+		initDSAndDBI();
+
+		return dbi.open(FriendDAO.class);
 	}
 
 	public static DataSource getDs() {

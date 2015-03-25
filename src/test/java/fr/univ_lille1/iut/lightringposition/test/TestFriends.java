@@ -36,8 +36,8 @@ public class TestFriends extends JerseyTest {
 		DBUtil.useTestDB();
 		DBUtil.deleteDB();
 		DBUtil.initDB("admin");
-		DBUtil.getDAO().insertUser("robert", "robert", "robert@caramail.fr", "Roro", "USER", null);
-		DBUtil.getDAO().insertUser("roger", "roger", "roger@wanarty.fr", "Gégé", "USER", null);
+		DBUtil.getUserDAO().insertUser("robert", "robert", "robert@caramail.fr", "Roro", "USER", null);
+		DBUtil.getUserDAO().insertUser("roger", "roger", "roger@wanarty.fr", "Gégé", "USER", null);
 	}
 
 	@AfterClass
@@ -51,6 +51,9 @@ public class TestFriends extends JerseyTest {
 		Entity<String> roro = Entity.entity("roro", MediaType.TEXT_PLAIN);
 
 		assertEquals(Response.Status.OK, target().request().header("Authorization",
+				"Basic " + Base64.encodeAsString("robert:robert")).put(roger).getStatus());
+
+		assertEquals(Response.Status.CONFLICT, target().request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).put(roger).getStatus());
 
 		assertEquals(Response.Status.NOT_FOUND, target().request().header("Authorization",

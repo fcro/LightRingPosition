@@ -21,7 +21,7 @@ public class Account {
 	@Path("{login}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserInfo(@PathParam("login") String login) {
-		User user = DBUtil.getDAO().findUserByLogin(login);
+		User user = DBUtil.getUserDAO().findUserByLogin(login);
 
 		return user;
 	}
@@ -32,10 +32,10 @@ public class Account {
 		if (!user.isValidNewUser())
 			return Response.status(400).entity("Champs incomplets ou incorrects").build();
 
-		if (DBUtil.getDAO().findUserByLogin(user.getLogin()) != null)
+		if (DBUtil.getUserDAO().findUserByLogin(user.getLogin()) != null)
 			return Response.status(409).entity("Ce login est déjà utilisé").build();
 
-		DBUtil.getDAO().insertUser(user.getLogin(), PwdEncrypt.encrypt(user.getPassword()),
+		DBUtil.getUserDAO().insertUser(user.getLogin(), PwdEncrypt.encrypt(user.getPassword()),
 				user.getEmail(), user.getNickname(), DEFAULT_ROLE, null);
 
 		return Response.status(201).entity("Utilisateur créé").build();

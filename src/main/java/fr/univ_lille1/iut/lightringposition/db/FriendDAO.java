@@ -11,6 +11,10 @@ public interface FriendDAO {
 			"WHERE login = :login")
 	List<String> findFriendsByLogin(@Bind("login") String login);
 
+	@SqlQuery("SELECT friend_login FROM FRIEND " +
+			"WHERE login = :login AND friend_login = :friend")
+	String findFriendByLoginAndFriend(@Bind("login") String login, @Bind("friend") String friend);
+
 	@SqlUpdate("INSERT INTO FRIEND(login, friend_login)" +
 			"VALUES(:login, :friend)")
 	void insertFriend(@Bind("login") String login, @Bind("friend") String friend);
