@@ -88,10 +88,9 @@ public class AboutFriend extends Activity {
             }
         }
     }
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.aboutfriends);
     }
     //clic inviter amis par message
     public void inviter(View view){
