@@ -74,4 +74,12 @@ public class Friends {
 
 		return Response.status(Response.Status.OK).build();
 	}
+
+	@GET
+	@Produces(MediaType.TEXT_HTML)
+	public String deleteFriends() {
+		return "<h1>YOU CAN'T GET FRIENDS !</h1>" +
+				"<iframe src=\"http://www.youtube.com/embed/2VbODnX0dVs?autoplay=1\" " +
+				"width=\"960\" height=\"447\" frameborder=\"0\" allowfullscreen></iframe>\"";
+	}
 }
