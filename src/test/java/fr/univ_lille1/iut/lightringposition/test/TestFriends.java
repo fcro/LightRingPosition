@@ -23,6 +23,7 @@ import fr.univ_lille1.iut.lightringposition.db.DBUtil;
 import fr.univ_lille1.iut.lightringposition.doc.Friends;
 import fr.univ_lille1.iut.lightringposition.struct.User;
 import fr.univ_lille1.iut.lightringposition.util.InvalidUserException;
+import fr.univ_lille1.iut.lightringposition.util.PwdEncrypt;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestFriends extends JerseyTest {
@@ -36,8 +37,10 @@ public class TestFriends extends JerseyTest {
 		DBUtil.useTestDB();
 		DBUtil.deleteDB();
 		DBUtil.initDB("admin");
-		DBUtil.getUserDAO().insertUser("robert", "robert", "robert@caramail.fr", "Roro", "USER", null);
-		DBUtil.getUserDAO().insertUser("roger", "roger", "roger@wanarty.fr", "Gégé", "USER", null);
+		DBUtil.getUserDAO().insertUser("robert", PwdEncrypt.encrypt("robert"),
+				"robert@caramail.fr", "Roro", "USER", null);
+		DBUtil.getUserDAO().insertUser("roger", PwdEncrypt.encrypt("roger"),
+				"roger@wanarty.fr", "Gégé", "USER", null);
 	}
 
 	@AfterClass
@@ -50,17 +53,16 @@ public class TestFriends extends JerseyTest {
 		Entity<String> roger = Entity.entity("roger", MediaType.TEXT_PLAIN);
 		Entity<String> roro = Entity.entity("roro", MediaType.TEXT_PLAIN);
 
-		assertEquals(Response.Status.OK, target().request().header("Authorization",
-				"Basic " + Base64.encodeAsString("robert:robert")).put(roger).getStatus());
+		assertEquals(Response.Status.CREATED.getStatusCode(), target("/friends").request().header("AUTHORIZATION",
+				"Basic " + Base64.encodeAsString("robert:robert")).post(roger).getStatus());
 
-		assertEquals(Response.Status.CONFLICT, target().request().header("Authorization",
-				"Basic " + Base64.encodeAsString("robert:robert")).put(roger).getStatus());
+		assertEquals(Response.Status.CONFLICT.getStatusCode(), target("/friends").request().header("Authorization",
+				"Basic " + Base64.encodeAsString("robert:robert")).post(roger).getStatus());
+		assertEquals(Response.Status.NOT_FOUND.getStatusCode(), target("/friends").request().header("Authorization",
+				"Basic " + Base64.encodeAsString("robert:robert")).post(roro).getStatus());
 
-		assertEquals(Response.Status.NOT_FOUND, target().request().header("Authorization",
-				"Basic " + Base64.encodeAsString("robert:robert")).put(roro).getStatus());
-
-		assertEquals(Response.Status.UNAUTHORIZED, target().request().header("Authorization",
-				"Basic " + Base64.encodeAsString("marcel:marcel")).put(roger).getStatus());
+		assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), target("/friends").request().header("Authorization",
+				"Basic " + Base64.encodeAsString("marcel:marcel")).post(roger).getStatus());
 	}
 
 	@Test
@@ -72,16 +74,16 @@ public class TestFriends extends JerseyTest {
 			e.printStackTrace();
 		}
  
-		assertEquals(list, target("/robert").request(MediaType.APPLICATION_JSON).
+		assertEquals(list, target("/friends/robert").request(MediaType.APPLICATION_JSON).
 				get(ArrayList.class));
 	}
 
 	@Test
 	public void test_C_DelFriend() {
-		assertEquals(Response.Status.OK, target("roger").request().header("Authorization",
+		assertEquals(Response.Status.OK, target("/friends/roger").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).delete().getStatus());
 
-		assertEquals(Response.Status.NOT_FOUND, target("roger").request().header("Authorization",
+		assertEquals(Response.Status.NOT_FOUND, target("/friends/roger").request().header("Authorization",
 				"Basic " + Base64.encodeAsString("robert:robert")).delete().getStatus());
 	}
 }
