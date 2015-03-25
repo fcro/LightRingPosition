@@ -11,6 +11,8 @@ var colors = [ '#33F0FA', '#FA3333', '#33FA7C', '#E522EF', 'maroon',
 
 var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
 var images = [];
+var JSONPlateau;
+
 for (i = 0; i < preload.length; i++) {
     images[i] = new Image();
     images[i].src = preload[i];
@@ -18,7 +20,7 @@ for (i = 0; i < preload.length; i++) {
 
 $(document).ready(function() {
 	$("#partie").hide();
-	
+	window.addEventListener("resize", function(){afficherPlateau(JSONPlateau)}, true);
 });
 
 function buttonLancerPartie() {
@@ -38,7 +40,8 @@ function lancerPartie() {
 function plateau() {
 	var path = "webapi/jeu/plateau";
 	$.getJSON(path, function(data) {
-		afficherPlateau(data)
+        JSONPlateau = data;
+		afficherPlateau(JSONPlateau)
 		$("#canvasEl").bind("click", function(e) {
 			canvasClick(e);
 			deplacement();
