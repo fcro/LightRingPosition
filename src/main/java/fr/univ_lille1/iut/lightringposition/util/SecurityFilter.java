@@ -35,8 +35,6 @@ public class SecurityFilter implements ContainerRequestFilter {
 		if (userPswd == null || userPswd.length != 2)
 			throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 
-		userPswd[0] = userPswd[0].trim();
-		userPswd[1] = userPswd[1].trim();
 
 		User user = DBUtil.getDAO().findUserByLoginPassword(userPswd[0], PwdEncrypt.encrypt(userPswd[1]));
 
