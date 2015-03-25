@@ -22,7 +22,7 @@ public class DBUtil {
 	 * les méthodes de manipulation de base de donnée fournies par UniDAO
 	 * @return instance de UniDAO
 	 */
-	public static UniDAO getDAO() {
+	public static UserDAO getDAO() {
 		if (ds == null) {
 			ds = new SQLiteDataSource();
 			ds.setUrl("jdbc:sqlite:" + dbUrl);
@@ -30,7 +30,7 @@ public class DBUtil {
 		if (dbi == null)
 			dbi = new DBI(ds);
 
-		return dbi.open(UniDAO.class);
+		return dbi.open(UserDAO.class);
 	}
 
 	public static DataSource getDs() {
