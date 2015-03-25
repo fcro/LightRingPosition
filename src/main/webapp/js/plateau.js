@@ -65,8 +65,13 @@ function afficherScore(data,num) {
 	$.getJSON(path,function(donnees) {
 		var nom="";
 		for(var i = 0; i<donnees.score.length;i++) {
-			nom += "<td align=\"center\" width="+canvas_width/donnees.score.length+"><b><FONT color=" +colors[i]+"> Joueur "+ i +" : " 
-			 data.listeJoueurs[i].nom + "</font></b></td>";
+			if(data.idx == i) {
+				nom += "<td align=\"center\" width="+canvas_width/donnees.score.length+" style=\"color:"+colors[i]+"; background-color: #ffff42\"><b> Joueur "+ i +" : " 
+				 data.listeJoueurs[i].nom + "</td>";
+			} else {
+				nom += "<td align=\"center\" width="+canvas_width/donnees.score.length+" style=\"color:"+ colors[i]+";background-color: #ffffff\">Joueur "+ i +" : " 
+			 data.listeJoueurs[i].nom + "</td>";
+			}
 		}
 		
 		var score="";
