@@ -42,7 +42,6 @@ public class SecurityFilter implements ContainerRequestFilter {
 			if (Role.containsRole(user.getRole()) && Role.containsRole(roleToCheck))
 				if (Role.valueOf(user.getRole()) >= Role.valueOf(roleToCheck)) {
 					login = user.getLogin();
-					System.out.println(login);
 					return;
 				}
 		

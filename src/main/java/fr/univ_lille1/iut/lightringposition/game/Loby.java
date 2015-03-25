@@ -9,10 +9,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
 
@@ -20,9 +18,17 @@ import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
 @Path("loby")
 
 public class Loby {
-	
+
 	private static Map<Integer, List<Joueur>> lobbies = new HashMap<Integer, List<Joueur>>();
-	
+
+	public static Map<Integer, List<Joueur>> getLobbies() {
+		return lobbies;
+	}
+
+	public static void setLobbies(Map<Integer, List<Joueur>> lobbies) {
+		Loby.lobbies = lobbies;
+	}
+
 	@GET
 	@Path("creer")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -38,24 +44,30 @@ public class Loby {
 		lobbies.put(idx,list); 
 		return lobbies.get(idx);
 	}
-	
+
 	@GET
 	@Path("liste")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Map<Integer, List<Joueur>> listeLoby() {
 		return lobbies;
 	}
-	
+
 	@GET
 	@Path("{numLoby}/rejoindre")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Joueur> rejoindreLoby(@PathParam("numLoby") int numLoby) {
+	public List<Joueur> rejoindreLoby(@PathParam("numLoby") int numLoby, ContainerRequestContext context) {
 		SecurityFilter sec = new SecurityFilter("USER");
-		if(lobbies.containsKey(numLoby)) {
-			lobbies.get(numLoby).add(new Joueur(sec.getLogin()));
-		} else {
-			throw new WebApplicationException(Response.Status.NOT_FOUND);
-		}
+		sec.filter(context);
+		lobbies.get(numLoby).add(new Joueur(sec.getLogin()));
 		return lobbies.get(numLoby);
 	}
+	
+	@GET
+	@Path("{numLoby}/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteLoby(@PathParam("numLoby") int numLoby) {
+		lobbies.remove(numLoby);
+	}
+
 }
+

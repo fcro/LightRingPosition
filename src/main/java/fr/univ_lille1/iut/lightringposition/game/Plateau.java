@@ -10,7 +10,6 @@ public class Plateau {
 	private int val;
 	private Case[][]plateau;
 	private int largeur, hauteur;
-	private char valeurObstacles;
 	private int tour = 100;
 	private int idx = 0;
 	private int[] countCase;
@@ -19,11 +18,9 @@ public class Plateau {
 
 	public Plateau(List<Joueur> listeJoueurs){
 		this.listeJoueurs = listeJoueurs;
-		for(int i=0;i<7;i++) {
-			this.listeJoueurs.add(new Joueur("toto_"+i));
-			this.listeJoueurs.get(i).setId(i);
+		for(int i = 0; i < listeJoueurs.size(); i++) {
+			listeJoueurs.get(i).setId(i);
 		}
-	
 		this.largeur = this.listeJoueurs.size() * 6;
 		this.hauteur = this.listeJoueurs.size() * 4;
 
@@ -94,13 +91,7 @@ public class Plateau {
 		this.idx = idx;
 	}
 
-	public char getValeurObstacles() {
-		return valeurObstacles;
-	}
 
-	public void setValeurObstacles(char valeurObstacles) {
-		this.valeurObstacles = valeurObstacles;
-	}
 
 	public void setVal(int val) {
 		this.val = val;
@@ -154,6 +145,10 @@ public class Plateau {
 				p.setIdx(p.getIdx()+1);
 			}
 		}
+	}
+	
+	public boolean verifJoueur(Joueur joueur, String string) {
+		return joueur.getNom().equals(string);
 	}
 
 	public int[] getCountCase() {
