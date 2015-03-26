@@ -22,6 +22,10 @@ public class EffetAleatoire {
 			p.generation();
 			p.effetAleatoire();
 			p.placementJoueur();
+		} else if (num == 3) {
+			p.supprimerJoueur();
+			p.effetAleatoire();
+			p.placementJoueur();
 		}
 	}
 }

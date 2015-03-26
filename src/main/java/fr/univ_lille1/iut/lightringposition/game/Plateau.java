@@ -46,6 +46,16 @@ public class Plateau {
 		}
 	}
 
+	public void supprimerJoueur() {
+		for(int i=0;i<largeur; ++i){
+			for( int j=0; j<hauteur; ++j){
+				if(plateau[i][j].getOccupant() != null) {
+					plateau[i][j].setOccupant(null);
+				}
+			}
+		}
+	}
+	
 	public void effetAleatoire() {
 		Random r= new Random();
 		int x,y;
@@ -123,6 +133,7 @@ public class Plateau {
 				y = r.nextInt(hauteur);
 			}while(!plateau[x][y].getEstVide());
 			plateau[x][y].setOccupant(listeJoueurs.get(i));
+			plateau[x][y].setProprietaire(listeJoueurs.get(i));
 			plateau[x][y].setEstVide(false);
 			plateau[x][y].setEstObstacle(false);
 			listeJoueurs.get(i).setCoordX(x);
@@ -140,9 +151,9 @@ public class Plateau {
 	public void deplacement(Plateau p, Joueur joueur, int coordX, int coordY) {
 		if(verifCavalier(p,joueur,coordX,coordY)) {
 			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setOccupant(null);
-			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setProprietaire(joueur);
 			p.getPlateau()[joueur.getCoordX()][joueur.getCoordY()].setEstVide(true);
 			p.getPlateau()[coordX][coordY].setOccupant(joueur);
+			p.getPlateau()[coordX][coordY].setProprietaire(joueur);
 			p.getPlateau()[coordX][coordY].setEstVide(false);
 			joueur.setCoordX(coordX);
 			joueur.setCoordY(coordY);
@@ -152,6 +163,8 @@ public class Plateau {
 				int val = r.nextInt(101);
 				if(val <= 5) {
 					effect.effect(2, p, p.getListeJoueurs(), joueur, coordX, coordY);
+				} else if(val > 5 && val <= 30){
+					effect.effect(3, p, p.getListeJoueurs(), joueur, coordX, coordY);
 				} else {
 					effect.effect(1, p, p.getListeJoueurs(), joueur, coordX, coordY);
 				}
