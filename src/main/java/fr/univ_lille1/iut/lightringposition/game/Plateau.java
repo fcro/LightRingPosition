@@ -148,7 +148,13 @@ public class Plateau {
 			joueur.setCoordY(coordY);
 			if(p.getPlateau()[coordX][coordY].isEffetAleatoire()) {
 				p.getPlateau()[coordX][coordY].setEffetAleatoire(false);
-				effect.effect(2, p, p.getListeJoueurs(), joueur, coordX, coordY);
+				Random r = new Random();
+				int val = r.nextInt(101);
+				if(val <= 5) {
+					effect.effect(2, p, p.getListeJoueurs(), joueur, coordX, coordY);
+				} else {
+					effect.effect(1, p, p.getListeJoueurs(), joueur, coordX, coordY);
+				}
 			}else {
 				coloriage(p,joueur,coordX,coordY);
 			}

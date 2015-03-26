@@ -19,6 +19,7 @@ public class EffetAleatoire {
 			p.coloriage(p, liste.get(val), x, y);
 		} else if (num == 2) {
 			p.generation();
+			p.effetAleatoire();
 			p.placementJoueur();
 		}
 	}

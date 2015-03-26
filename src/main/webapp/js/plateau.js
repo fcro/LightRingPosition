@@ -20,11 +20,21 @@ var preload = ["img/Mage-rouge.gif", "img/Mage-rouge.gif", "img/Mage-rouge.gif",
                "img/Mage-rouge.gif","img/Mage-rouge.gif","img/Mage-rouge.gif",
                "img/Mage-rouge.gif", "img/Mage-rouge.gif","img/Mage-rouge.gif"];
 var images = [];
+var cases = ["img/void.gif","img/case.png"]
+var cases_img = [];
+
 var JSONPlateau;
+
+
 
 for (i = 0; i < preload.length; i++) {
 	images[i] = new Image();
 	images[i].src = preload[i];
+}
+
+for (i = 0; i < cases.length; i++) {
+	cases_img[i] = new Image();
+	cases_img[i].src = cases[i];
 }
 
 /* Méthode permettant de calculer la taille d'un objet" */
@@ -199,38 +209,32 @@ function afficherPlateau(data,num) {
 	var largeur = data.largeur;
 	var hauteur = data.hauteur;
 
-	var img = new Image();
-	img.src = "img/case.png";
-	img.onload = function () {
-		for ( var i = 0; i < data.largeur; i++) {
-			for ( var j = 0; j < data.hauteur; j++) {
-				context.drawImage(img, (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
-				if (data.plateau[i][j].estObstacle === true) {
-					context.fillRect((width / largeur) * i, (height / hauteur)
-							* j, width / largeur, height / hauteur);
-				} else if (data.plateau[i][j].effetAleatoire === true) {
-					context.fillStyle = "#ffffff";
-					context.fillRect((width / largeur) * i, (height / hauteur)
-							* j, (width / largeur), height / hauteur);
-					context.fillStyle = "#000000";
-				} else if (data.plateau[i][j].occupant != undefined) {
+	for ( var i = 0; i < data.largeur; i++) {
+		for ( var j = 0; j < data.hauteur; j++) {
+			context.drawImage(cases_img[1], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
+			if (data.plateau[i][j].estObstacle === true) {
+				context.fillRect((width / largeur) * i, (height / hauteur)
+						* j, width / largeur, height / hauteur);
+			} else if (data.plateau[i][j].effetAleatoire === true) {
+				context.drawImage(cases_img[0], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
+			} else if (data.plateau[i][j].occupant != undefined) {
 
-					context.fillStyle = colors[data.plateau[i][j].occupant.id];
-					context.fillRect((width / largeur) * i, (height / hauteur)
-							* j, width / largeur, height / hauteur);
-					context.fillStyle = "#000000";
-					context.drawImage(images[data.plateau[i][j].occupant.id], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
+				context.fillStyle = colors[data.plateau[i][j].occupant.id];
+				context.fillRect((width / largeur) * i, (height / hauteur)
+						* j, width / largeur, height / hauteur);
+				context.fillStyle = "#000000";
+				context.drawImage(images[data.plateau[i][j].occupant.id], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
 
-				} else if (data.plateau[i][j].proprietaire != undefined) {
+			} else if (data.plateau[i][j].proprietaire != undefined) {
 
-					context.fillStyle = colors[data.plateau[i][j].proprietaire.id];
-					context.fillRect((width / largeur) * i, (height / hauteur)
-							* j, (width / largeur), height / hauteur);
-					context.fillStyle = "#000000";
-				} 
-			}
+				context.fillStyle = colors[data.plateau[i][j].proprietaire.id];
+				context.fillRect((width / largeur) * i, (height / hauteur)
+						* j, (width / largeur), height / hauteur);
+				context.fillStyle = "#000000";
+			} 
 		}
 	}
+
 	afficherInformation(data);
 	afficherScore(data,num);
 }
