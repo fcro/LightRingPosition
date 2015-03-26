@@ -19,7 +19,8 @@ public class Plateau {
 
 	public Plateau(List<Joueur> listeJoueurs){
 		this.listeJoueurs = listeJoueurs;
-		for(int i = 0; i < listeJoueurs.size(); i++) {
+		System.out.println(listeJoueurs.size());
+		for(int i = 0; i < this.listeJoueurs.size(); i++) {
 			listeJoueurs.get(i).setId(i);
 		}
 		this.largeur = this.listeJoueurs.size() * 6;

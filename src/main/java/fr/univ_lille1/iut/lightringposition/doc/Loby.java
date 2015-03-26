@@ -66,7 +66,8 @@ public class Loby {
 	@GET
 	@Path("{numLoby}/delete")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void deleteLoby(@PathParam("numLoby") int numLoby) {
+	public void deleteLoby(@PathParam("numLoby") int numLoby) throws InterruptedException {
+		Thread.sleep(3000);
 		lobbies.remove(numLoby);
 	}
 }
