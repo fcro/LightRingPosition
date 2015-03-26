@@ -104,7 +104,7 @@ public class AboutFriend extends Activity {
         TextView liste=(TextView)findViewById(R.id.champListe);
 
             String response;
-            final String url = "http://www.perdu.com";
+            final String url = getString(R.string.url) + "/webapi/friends/";
             AsyncGet ag = new AsyncGet();
             ag.execute(url);
             try {
@@ -137,7 +137,7 @@ public class AboutFriend extends Activity {
            sup.setText("veuillez entrer un login");
        }else {
            aSupprimer += sup.getText().toString();
-           final String url = "http://www.perdu.com";
+           final String url = getString(R.string.url) + "/webapi/friends/" + sup.getText();
             AsyncSupprimer ag = new AsyncSupprimer();
            ag.execute(url);
            try {
@@ -161,7 +161,7 @@ public class AboutFriend extends Activity {
 
         } else {
             aAjouter += ret.getText().toString();
-            final String url = "http://www.perdu.com";
+            final String url = getString(R.string.url) + "/webapi/friends";
             AsyncAjout ag = new AsyncAjout();
             ag.execute(url);
             try {

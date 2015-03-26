@@ -79,7 +79,7 @@ public class compte extends Activity {
                     Toast.LENGTH_LONG).show();
         }else {
 
-            final String url = "http://www.perdu.com";
+            final String url = getString(R.string.url) + "/webapi/account";
             AsyncGet ag = new AsyncGet();
             ag.execute(url);
             try {

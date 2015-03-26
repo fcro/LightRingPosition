@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
 
         } else if (strPseudo.equals("admin") && strMDP.equals("admin")) {
             String response;
-            final String url = "http://www.perdu.com";
+            final String url = getString(R.string.url) + "/webapi/index";
             AsyncGet ag = new AsyncGet();
             ag.execute(url);
             try {
