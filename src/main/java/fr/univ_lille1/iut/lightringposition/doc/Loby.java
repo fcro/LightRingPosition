@@ -1,4 +1,4 @@
-package fr.univ_lille1.iut.lightringposition.game;
+package fr.univ_lille1.iut.lightringposition.doc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.MediaType;
 
+import fr.univ_lille1.iut.lightringposition.game.Joueur;
 import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
 
 
@@ -68,6 +69,4 @@ public class Loby {
 	public void deleteLoby(@PathParam("numLoby") int numLoby) {
 		lobbies.remove(numLoby);
 	}
-
 }
-

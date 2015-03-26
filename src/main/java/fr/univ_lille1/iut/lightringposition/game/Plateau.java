@@ -6,11 +6,12 @@ import java.util.Random;
 
 public class Plateau {
 
+	private EffetAleatoire effect = new EffetAleatoire();
 	private List<Joueur> listeJoueurs;
 	private int val;
 	private Case[][]plateau;
 	private int largeur, hauteur;
-	private int tour = 100;
+	private int tour = 50;
 	private int idx = 0;
 	private int[] countCase;
 
@@ -23,9 +24,7 @@ public class Plateau {
 		}
 		this.largeur = this.listeJoueurs.size() * 6;
 		this.hauteur = this.listeJoueurs.size() * 4;
-
-		this.plateau=new Case[this.largeur][this.hauteur];
-		
+		this.plateau=new Case[this.largeur][this.hauteur];		
 
 	}
 
@@ -45,6 +44,16 @@ public class Plateau {
 			plateau[x][y].setEstObstacle(true);
 			plateau[x][y].setEstVide(false);
 		}
+	}
+
+	public void effetAleatoire() {
+		Random r= new Random();
+		int x,y;
+		do {
+			x = r.nextInt(largeur);
+			y = r.nextInt(hauteur);
+		}while(plateau[x][y].getEstObstacle());
+		plateau[x][y].setEffetAleatoire(true);		
 	}
 
 	public int getVal() {
@@ -137,7 +146,12 @@ public class Plateau {
 			p.getPlateau()[coordX][coordY].setEstVide(false);
 			joueur.setCoordX(coordX);
 			joueur.setCoordY(coordY);
-			coloriage(p,joueur,coordX,coordY);
+			if(p.getPlateau()[coordX][coordY].isEffetAleatoire()) {
+				p.getPlateau()[coordX][coordY].setEffetAleatoire(false);
+				effect.effect(1, p, p.getListeJoueurs(), joueur, coordX, coordY);
+			}else {
+				coloriage(p,joueur,coordX,coordY);
+			}
 			p.setTour(p.getTour() - 1);
 			if (p.getIdx() + 1>= listeJoueurs.size()){
 				p.setIdx(0);
@@ -146,7 +160,7 @@ public class Plateau {
 			}
 		}
 	}
-	
+
 	public boolean verifJoueur(Joueur joueur, String string) {
 		return joueur.getNom().equals(string);
 	}

@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fr.univ_lille1.iut.lightringposition.game.Joueur;
-import fr.univ_lille1.iut.lightringposition.game.Loby;
 import fr.univ_lille1.iut.lightringposition.game.ObjetTransfert;
 import fr.univ_lille1.iut.lightringposition.game.Plateau;
 import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
@@ -25,21 +24,20 @@ import fr.univ_lille1.iut.lightringposition.util.SecurityFilter;
 public class PlateauJeu{
 
 	private static Map<Integer,Plateau> partie = new HashMap<Integer,Plateau>();
+
 	@GET
 	@Path("plateau/{partie}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Plateau getPlateau(@PathParam("partie") int numPartie){
-		/*if(partie.containsKey(numPartie)) {
-			return partie.get(numPartie);
-		} else {*/
-			List<Joueur> liste = Loby.getLobbies().get(numPartie);
-			Plateau p=new Plateau(liste);
-			partie.put(numPartie,p);
-			partie.get(numPartie).generation();
-			partie.get(numPartie).placementJoueur();
-			return partie.get(numPartie);
-		}
-	
+		List<Joueur> liste = Loby.getLobbies().get(numPartie);
+		Plateau p=new Plateau(liste);
+		partie.put(numPartie,p);
+		partie.get(numPartie).generation();
+		partie.get(numPartie).effetAleatoire();
+		partie.get(numPartie).placementJoueur();
+		return partie.get(numPartie);
+	}
+
 
 	@GET
 	@Path("{partie}/coord/{x}/{y}/move")

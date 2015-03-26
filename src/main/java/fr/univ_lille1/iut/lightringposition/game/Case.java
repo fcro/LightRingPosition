@@ -3,6 +3,7 @@ package fr.univ_lille1.iut.lightringposition.game;
 public class Case {
 	private boolean estVide;
 	private boolean estObstacle;
+	private boolean effetAleatoire;
 	private Joueur occupant;
 	private Joueur proprietaire;
 	
@@ -13,6 +14,14 @@ public class Case {
 		proprietaire = null;
 	}
 	
+	public boolean isEffetAleatoire() {
+		return effetAleatoire;
+	}
+
+	public void setEffetAleatoire(boolean effetAleatoire) {
+		this.effetAleatoire = effetAleatoire;
+	}
+
 	public boolean getEstVide() {
 		return estVide;
 	}

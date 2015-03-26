@@ -27,8 +27,7 @@ for (i = 0; i < preload.length; i++) {
 	images[i].src = preload[i];
 }
 
-
-
+/* Méthode permettant de calculer la taille d'un objet" */
 
 Object.size = function(obj) {
 	var size = 0, key;
@@ -39,7 +38,7 @@ Object.size = function(obj) {
 };
 
 
-
+/* Listage des parties en cours */
 
 function listerPartie() {
 	$(".signup").hide();
@@ -59,6 +58,8 @@ function listerPartie() {
 	});
 
 }
+
+/*Rejoindre une partie créée */
 
 function rejoindrePartie(data) {
 	$.ajax({
@@ -83,6 +84,8 @@ function rejoindrePartie(data) {
 	});
 }
 
+/*Création d'une partie*/
+
 function creerPartie() {
 	$.ajax({
 		method: 'GET',
@@ -99,19 +102,20 @@ function creerPartie() {
 				document.getElementById("listePartie").innerHTML += "<li>"+data[i].nom+"</li>";	
 			}   
 			document.getElementById("listePartie").innerHTML+="<br><a class=\"btn btn-default\" href=\"#\" role=\"button\" " +
-			"onclick=\"lancerPartie("+data+") >Lancer Partie</a>";
+			"onclick=\"quitterPartie()\" >Quitter Partie</a>";
 		},
-		error: function(xhr, stat, exception) {
-			$("#indexmsg").append("<h2>Tu sais pas te connecter ? Tu veux des cours d'internet ?</h2>");
-		}
 	});
 }
+
+/* Lance la partie et la supprime des parties disponibles*/
 
 function buttonLancerPartie(data) {
 	lancerPartie()
 	plateau(data)
 	supprimerPartie(data)
 }
+
+
 
 function supprimerPartie(data) {
 	var path = "webapi/loby/"+data+"/delete";
@@ -142,6 +146,10 @@ function plateau(num) {
 		});
 	});
 }
+
+/* Affichage du nombres de cases que possède chaque joueur et
+ * met en surbrillance le joueur qui doit jouer
+ */
 
 function afficherScore(data,num) {
 	var path = "webapi/jeu/"+num+"/count";
@@ -174,7 +182,7 @@ function afficherInformation(data) {
 
 }
 
-
+/* Affichage du plateau avec la mise en couleurs des cases */
 
 function afficherPlateau(data,num) {
 
@@ -200,35 +208,38 @@ function afficherPlateau(data,num) {
 				if (data.plateau[i][j].estObstacle === true) {
 					context.fillRect((width / largeur) * i, (height / hauteur)
 							* j, width / largeur, height / hauteur);
-				} else
-					if (data.plateau[i][j].occupant != undefined) {
+				} else if (data.plateau[i][j].effetAleatoire === true) {
+					context.fillStyle = "#ffffff";
+					context.fillRect((width / largeur) * i, (height / hauteur)
+							* j, (width / largeur), height / hauteur);
+					context.fillStyle = "#000000";
+				} else if (data.plateau[i][j].occupant != undefined) {
 
-						context.fillStyle = colors[data.plateau[i][j].occupant.id];
-						context.fillRect((width / largeur) * i, (height / hauteur)
-								* j, width / largeur, height / hauteur);
-						context.fillStyle = "#000000";
-						context.drawImage(images[data.plateau[i][j].occupant.id], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
+					context.fillStyle = colors[data.plateau[i][j].occupant.id];
+					context.fillRect((width / largeur) * i, (height / hauteur)
+							* j, width / largeur, height / hauteur);
+					context.fillStyle = "#000000";
+					context.drawImage(images[data.plateau[i][j].occupant.id], (width / largeur) * i, (height / hauteur) * j, width / largeur, height / hauteur);
 
-					} 
-					else if (data.plateau[i][j].proprietaire != undefined) {
+				} else if (data.plateau[i][j].proprietaire != undefined) {
 
-						context.fillStyle = colors[data.plateau[i][j].proprietaire.id];
-						context.fillRect((width / largeur) * i, (height / hauteur)
-								* j, (width / largeur), height / hauteur);
-						context.fillStyle = "#000000";
-					}
+					context.fillStyle = colors[data.plateau[i][j].proprietaire.id];
+					context.fillRect((width / largeur) * i, (height / hauteur)
+							* j, (width / largeur), height / hauteur);
+					context.fillStyle = "#000000";
+				} 
 			}
 		}
 	}
 	afficherInformation(data);
 	afficherScore(data,num);
-
 }
 
+/* Permet le déplacement du joueur. Fait une vérification que le joueur qui doit jouer est
+ * celui connecté
+ */
 
 function deplacement(num) {
-
-	
 	$.ajax({
 		method: 'GET',
 		contentType: 'text/html',
@@ -237,12 +248,15 @@ function deplacement(num) {
 			req.setRequestHeader('AUTHORIZATION', 'Basic ' + btoa(localStorage.getItem('login') + ':' + localStorage.getItem('pwd')));
 			console.log('AUTHORIZATION', 'Basic ' + btoa(localStorage.getItem('login') + ':' + localStorage.getItem('pwd')))
 		},
-
 		success: function(data) {
 			afficherPlateau(data,num);
 		}
 	});
 }
+
+/* Permet de récuperer la valeur (en pixels) 
+ * l'endroit où l'on a cliquer sur le canvas
+ */
 
 function canvasClick(e) {
 	var targ;
