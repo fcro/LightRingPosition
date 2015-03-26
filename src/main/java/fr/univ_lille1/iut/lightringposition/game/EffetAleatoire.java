@@ -17,6 +17,7 @@ public class EffetAleatoire {
 			val = r.nextInt(liste.size());
 			} while(liste.get(val).equals(joueur));
 			p.coloriage(p, liste.get(val), x, y);
+			p.effetAleatoire();
 		} else if (num == 2) {
 			p.generation();
 			p.effetAleatoire();
