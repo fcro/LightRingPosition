@@ -148,7 +148,7 @@ public class Plateau {
 			joueur.setCoordY(coordY);
 			if(p.getPlateau()[coordX][coordY].isEffetAleatoire()) {
 				p.getPlateau()[coordX][coordY].setEffetAleatoire(false);
-				effect.effect(1, p, p.getListeJoueurs(), joueur, coordX, coordY);
+				effect.effect(2, p, p.getListeJoueurs(), joueur, coordX, coordY);
 			}else {
 				coloriage(p,joueur,coordX,coordY);
 			}
